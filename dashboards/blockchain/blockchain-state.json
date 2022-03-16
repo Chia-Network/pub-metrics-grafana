@@ -1,0 +1,1019 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 7,
+  "iteration": 1647393268651,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Summary",
+      "type": "row"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n    )\n)",
+          "interval": "",
+          "legendFormat": "Netspace",
+          "refId": "A"
+        }
+      ],
+      "title": "Netspace",
+      "type": "stat"
+    },
+    {
+      "description": "How much the netspace has changed during the selected timeframe",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}) !=0))\n- \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range) != 0))",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Netspace",
+          "refId": "A"
+        }
+      ],
+      "title": "Netspace Delta",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0 or \n        chia_full_node_node_height {application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n    )\n)",
+          "interval": "",
+          "legendFormat": "Height",
+          "refId": "A"
+        }
+      ],
+      "title": "Height",
+      "type": "stat"
+    },
+    {
+      "description": "How much the blockchain height has changed by during the selected timeframe",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 4
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} != 0)) \n- \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or \n        chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range != 0))",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Height",
+          "refId": "A"
+        }
+      ],
+      "title": "Height Delta",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1,\n        chia_blockchain_difficulty{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n        chia_full_node_difficulty{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0 \n    )\n)",
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "refId": "A"
+        }
+      ],
+      "title": "Difficulty",
+      "type": "stat"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "$__range_s/(\n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}\n    ) != 0\n  ) - \n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range\n    ) != 0\n  )\n)",
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "refId": "A"
+        }
+      ],
+      "title": "Seconds per Block",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Blockchain",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_netspace_mib{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} or\n    chia_full_node_netspace_mib{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} != 0\n  )\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Netspace",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "topk(1, \n  avg_over_time(job:combined_chia_blockchain_netspace_mib{network=\"$network\",component=\"node\"}[30d]) or \n  avg_over_time(job:combined_chia_full_node_netspace_mib{network=\"$network\",component=\"node\"}[30d])\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "30d Average",
+          "refId": "B"
+        }
+      ],
+      "title": "Netspace",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 1,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_difficulty{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} or \n    chia_full_node_difficulty{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} !=0\n  )\n)",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "refId": "A"
+        }
+      ],
+      "title": "Difficulty",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Blocks per 18.75 seconds"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2CC0C",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_height{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} or\n    chia_full_node_node_height{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} !=0\n  )\n)",
+          "interval": "",
+          "legendFormat": "Height",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": true,
+          "expr": "($__range_s/(\n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"}\n    ) != 0\n  ) - \n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} offset $__range or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} offset $__range\n    ) != 0\n  )\n))/18.75",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Blocks per 18.75 seconds",
+          "refId": "B"
+        }
+      ],
+      "title": "Height",
+      "type": "timeseries"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uncompact"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 16
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n  )\n)",
+          "interval": "",
+          "legendFormat": "Compact",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": true,
+          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n    chia_full_node_uncompact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n  )\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Uncompact",
+          "refId": "B"
+        }
+      ],
+      "title": "Compact / Uncompact Blocks",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(rate(chia_full_node_total_signage_points{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[5m])*9.375)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "SPs/9.375s",
+          "refId": "B"
+        }
+      ],
+      "title": "Signage Points per 9.375s",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows winning plot sizes for the selected timeframe",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      },
+      "id": 41,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": true,
+          "expr": "sum by(size) (rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) / ignoring(size) group_left sum(rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) != 0",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{size}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Plot K Size",
+      "type": "bargauge"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [
+    "blockchain"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "mainnet",
+          "value": "mainnet"
+        },
+        "definition": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
+        "description": "The network to filter results by",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Network",
+        "multi": false,
+        "name": "network",
+        "options": [],
+        "query": {
+          "query": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": ".*network=\"(.*)\".*",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Blockchain State",
+  "uid": "CL1X4UWnk",
+  "version": 15,
+  "weekStart": ""
+}
