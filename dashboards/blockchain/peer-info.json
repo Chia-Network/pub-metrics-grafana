@@ -1,0 +1,962 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1646083955042,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "description": "Reliable nodes are nodes that allow inbound connections and have available space for more peers to connect",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_reliable_nodes{application=\"crawler\",network=\"$network\"} != 0)",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Reliable Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "Reliable Nodes",
+      "type": "stat"
+    },
+    {
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "#F2495C",
+        "rgba(237, 129, 40, 0.89)"
+      ],
+      "decimals": 0,
+      "description": "Peer distribution within a country is not reflected",
+      "esMetric": "Count",
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 3,
+        "y": 0
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 24,
+      "initialZoom": 1,
+      "locationData": "countries",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "showLegend": false,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max by (country) (chia_crawler_country_node_count{network=\"$network\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{country}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "",
+      "title": "Peer Map (By Country)",
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "valueName": "total"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 5,
+        "x": 12,
+        "y": 0
+      },
+      "id": 28,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Gossiped Peer Count"
+          }
+        ]
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max by (country_display) (chia_crawler_country_node_count{network=\"$network\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{country_display}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Country Counts",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "application": true,
+              "container": true,
+              "endpoint": true,
+              "instance": true,
+              "job": true,
+              "namespace": true,
+              "network": true,
+              "pod": true,
+              "prometheus": true,
+              "service": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "Gossiped Peer Count"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 3
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_total_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Total - 5 Days",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Nodes - 5 Days",
+      "type": "stat"
+    },
+    {
+      "description": "This is the total number of IPv4 nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 6
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_ipv4_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "IPv4 Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "IPv4 Nodes - 5 Days",
+      "type": "stat"
+    },
+    {
+      "description": "This is the total number of IPv6 nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 9
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_ipv6_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "IPv6 Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "IPv6 Nodes - 5 Days",
+      "type": "stat"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 16,
+      "title": "Version Distribution",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 7,
+        "x": 0,
+        "y": 13
+      },
+      "id": 22,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max by (version) (chia_crawler_peer_version{application=\"crawler\",network=\"$network\"} >= 100)",
+          "interval": "",
+          "legendFormat": "{{version}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Version Breakdown",
+      "type": "piechart"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 17,
+        "x": 7,
+        "y": 13
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "sort": "current",
+          "sortDesc": false
+        },
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max by (version) (chia_crawler_peer_version{application=\"crawler\",network=\"$network\"} >= 100)",
+          "interval": "",
+          "legendFormat": "{{version}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Version Distribution",
+      "type": "bargauge"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 14,
+      "panels": [
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 26
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PB06BBC9CA81C548D"
+              },
+              "exemplar": false,
+              "expr": "max by (version) (\n    (chia_crawler_version_bucket{application=\"crawler\",network=\"$network\"} or\n    chia_crawler_peer_version{application=\"crawler\",network=\"$network\"}) >= 5\n)",
+              "interval": "",
+              "legendFormat": "{{ version }}",
+              "refId": "A"
+            }
+          ],
+          "title": "Version History",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Version History",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 12,
+      "title": "Nodes",
+      "type": "row"
+    },
+    {
+      "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_total_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "interval": "",
+          "legendFormat": "Total Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Nodes - 5 Days",
+      "type": "timeseries"
+    },
+    {
+      "description": "Reliable nodes are nodes that allow inbound connections and have available space for more peers to connect",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_reliable_nodes{application=\"crawler\",network=\"$network\"} != 0)",
+          "interval": "",
+          "legendFormat": "Reliable Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "Reliable Nodes",
+      "type": "timeseries"
+    },
+    {
+      "description": "This is the total number of IPv6 nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "max(chia_crawler_ipv6_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "interval": "",
+          "legendFormat": "IPv6 Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "IPv6 Nodes - 5 Days",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [
+    "blockchain"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "mainnet",
+          "value": "mainnet"
+        },
+        "definition": "label_values({application=\"crawler\"}, network)",
+        "description": "The network to filter results by",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Network",
+        "multi": false,
+        "name": "network",
+        "options": [],
+        "query": {
+          "query": "label_values({application=\"crawler\"}, network)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Peer Info",
+  "uid": "em15uQ47k",
+  "version": 4,
+  "weekStart": ""
+}
