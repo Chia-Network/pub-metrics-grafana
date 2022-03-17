@@ -21,8 +21,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1646083955042,
+  "id": 8,
+  "iteration": 1647524149287,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -76,7 +76,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_reliable_nodes{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Reliable Nodes",
@@ -284,7 +284,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_total_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Total - 5 Days",
@@ -344,7 +344,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_ipv4_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv4_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv4 Nodes",
@@ -404,7 +404,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_ipv6_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv6 Nodes",
@@ -479,7 +479,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max by (version) (chia_crawler_peer_version{application=\"crawler\",network=\"$network\"} >= 100)",
+          "expr": "max by (version) (chia_crawler_peer_version{network=\"$network\"} >= 100)",
           "interval": "",
           "legendFormat": "{{version}}",
           "refId": "A"
@@ -539,7 +539,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max by (version) (chia_crawler_peer_version{application=\"crawler\",network=\"$network\"} >= 100)",
+          "expr": "max by (version) (chia_crawler_peer_version{network=\"$network\"} >= 100)",
           "interval": "",
           "legendFormat": "{{version}}",
           "refId": "A"
@@ -598,8 +598,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -634,7 +633,7 @@
                 "uid": "PB06BBC9CA81C548D"
               },
               "exemplar": false,
-              "expr": "max by (version) (\n    (chia_crawler_version_bucket{application=\"crawler\",network=\"$network\"} or\n    chia_crawler_peer_version{application=\"crawler\",network=\"$network\"}) >= 5\n)",
+              "expr": "max by (version) (\n    (chia_crawler_version_bucket{network=\"$network\"} or\n    chia_crawler_peer_version{network=\"$network\"}) >= 5\n)",
               "interval": "",
               "legendFormat": "{{ version }}",
               "refId": "A"
@@ -734,7 +733,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_total_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Total Nodes",
           "refId": "A"
@@ -819,7 +818,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_reliable_nodes{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Reliable Nodes",
           "refId": "A"
@@ -904,7 +903,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(chia_crawler_ipv6_nodes_5_days{application=\"crawler\",network=\"$network\"} != 0)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "IPv6 Nodes",
           "refId": "A"
@@ -925,11 +924,11 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "mainnet",
           "value": "mainnet"
         },
-        "definition": "label_values({application=\"crawler\"}, network)",
+        "definition": "label_values({application=\"chia-blockchain\",component=\"dns-introducer\"}, network)",
         "description": "The network to filter results by",
         "hide": 0,
         "includeAll": false,
@@ -938,7 +937,7 @@
         "name": "network",
         "options": [],
         "query": {
-          "query": "label_values({application=\"crawler\"}, network)",
+          "query": "label_values({application=\"chia-blockchain\",component=\"dns-introducer\"}, network)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -957,6 +956,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 4,
+  "version": 3,
   "weekStart": ""
 }
