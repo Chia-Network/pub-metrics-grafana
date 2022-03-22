@@ -36,6 +36,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+env: []
+#  - name: GF_SERVER_ROOT_URL
+#    value: "https://grafana.example.com"
+
 service:
   type: ClusterIP
   port: 80
