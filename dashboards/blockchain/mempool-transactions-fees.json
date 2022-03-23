@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1647393754005,
+  "iteration": 1648072061289,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -115,7 +115,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_full_node_mempool_size{application=\"chia-blockchain\",network=\"$network\", component=\"node\"} or\n    chia_blockchain_mempool_size{application=\"chia-blockchain\",network=\"$network\", component=\"node\"}\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_full_node_mempool_size{network=\"$network\"} or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Spends",
           "refId": "A"
@@ -212,7 +212,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_cost{application=\"chia-blockchain\",network=\"$network\", component=\"node\"})\n) !=0",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"})\n) !=0",
           "hide": false,
           "interval": "",
           "legendFormat": "Mempool Cost",
@@ -224,7 +224,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_max_total_cost{application=\"chia-blockchain\",network=\"$network\", component=\"node\"})!=0\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_max_total_cost{network=\"$network\"})!=0\n)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -233,97 +233,6 @@
         }
       ],
       "title": "Mempool Cost",
-      "type": "timeseries"
-    },
-    {
-      "description": "Shows how many standard deviations away from the 1 week mean the 5m rate is",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMax": 10,
-            "axisSoftMin": -10,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "line"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "super-light-red",
-                "value": -3
-              },
-              {
-                "color": "super-light-red",
-                "value": 3
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 1
-      },
-      "id": 33,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "exemplar": false,
-          "expr": "(\n\tsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n\t\ttopk(1, avg_over_time(\n  \t\t\tchia_full_node_mempool_cost{network=\"$network\", component=\"node\"}[15m]\n\t\t))\n\t\t) -\n\tsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n\t\ttopk(1, avg_over_time(\n  \t\t\tchia_full_node_mempool_cost{network=\"$network\", component=\"node\"}[1w]\n\t\t))\n\t)\n) / \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n\ttopk(1, stddev_over_time(chia_full_node_mempool_cost{network=\"$network\", component=\"node\"}[1w]))\n)",
-          "interval": "",
-          "legendFormat": "Z-Score",
-          "refId": "A"
-        }
-      ],
-      "title": "Mempool Z Score (Cost)",
       "type": "timeseries"
     },
     {
@@ -416,7 +325,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{application=\"chia-blockchain\",network=\"$network\", component=\"node\"}) / 5000000\n) * \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{application=\"chia-blockchain\",network=\"$network\", component=\"node\"}[5m]) and on (instance) (chia_full_node_node_synced{application=\"chia-blockchain\",network=\"$network\", component=\"node\"} == 1)\n  )\n) / 3",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) / 5000000\n) * \nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{network=\"$network\"}[5m]) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n  )\n) / 3",
           "interval": "",
           "legendFormat": "5,000,000 Cost TX",
           "refId": "A"
@@ -503,7 +412,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{application=\"chia-blockchain\",network=\"$network\", component=\"node\"}) /\n  topk(1, chia_full_node_block_max_cost{application=\"chia-blockchain\",network=\"$network\", component=\"node\"})\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) /\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
           "interval": "",
           "legendFormat": "Block Percent Full",
           "refId": "A"
@@ -588,7 +497,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_full_node_hint_count{application=\"chia-blockchain\",network=\"$network\", component=\"node\"} or\n    chia_blockchain_hint_count{application=\"chia-blockchain\",network=\"$network\", component=\"node\"}\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\"} or\n    chia_blockchain_hint_count{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Hint Count",
           "refId": "A"
@@ -704,7 +613,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_fees{application=\"chia-blockchain\",network=\"$network\", component=\"node\"})\n) / 1000000000000",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_fees{network=\"$network\"})\n) / 1000000000000",
           "interval": "",
           "legendFormat": "Block Fees",
           "refId": "A"
@@ -786,7 +695,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{application=\"chia-blockchain\",network=\"$network\",cost=\"5000000\"})\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{network=\"$network\", cost=\"5000000\"})\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "5,000,000",
@@ -840,6 +749,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
