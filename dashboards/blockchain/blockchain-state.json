@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1647393268651,
+  "iteration": 1648069612211,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -32,7 +32,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 0
       },
       "id": 27,
       "panels": [],
@@ -64,7 +64,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 1
       },
       "id": 17,
       "options": {
@@ -90,7 +90,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n    )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"} !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Netspace",
           "refId": "A"
@@ -124,7 +124,7 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 1
       },
       "id": 19,
       "options": {
@@ -150,7 +150,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}) !=0))\n- \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or \n        chia_full_node_netspace_mib{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range) != 0))",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"}) !=0))\n- \nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        chia_full_node_netspace_mib{network=\"$network\"} offset $__range) != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -183,7 +183,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 4
+        "y": 1
       },
       "id": 16,
       "options": {
@@ -209,7 +209,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0 or \n        chia_full_node_node_height {application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n    )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Height",
           "refId": "A"
@@ -242,7 +242,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 4
+        "y": 1
       },
       "id": 20,
       "options": {
@@ -268,7 +268,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or \n        chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} != 0)) \n- \nsum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or \n        chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range != 0))",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Height",
@@ -301,7 +301,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 4
+        "y": 1
       },
       "id": 18,
       "options": {
@@ -327,7 +327,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1,\n        chia_blockchain_difficulty{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n        chia_full_node_difficulty{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0 \n    )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -360,7 +360,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 4
+        "y": 1
       },
       "id": 25,
       "options": {
@@ -386,7 +386,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "$__range_s/(\n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}\n    ) != 0\n  ) - \n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} offset $__range\n    ) != 0\n  )\n)",
+          "expr": "$__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -401,7 +401,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 4
       },
       "id": 10,
       "panels": [],
@@ -464,7 +464,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 5
       },
       "id": 6,
       "options": {
@@ -484,7 +484,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_netspace_mib{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} or\n    chia_full_node_netspace_mib{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} != 0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} != 0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -496,7 +496,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "topk(1, \n  avg_over_time(job:combined_chia_blockchain_netspace_mib{network=\"$network\",component=\"node\"}[30d]) or \n  avg_over_time(job:combined_chia_full_node_netspace_mib{network=\"$network\",component=\"node\"}[30d])\n)",
+          "expr": "topk(1, \n  avg_over_time(job:combined_chia_blockchain_netspace_mib{network=\"$network\"}[30d]) or \n  avg_over_time(job:combined_chia_full_node_netspace_mib{network=\"$network\"}[30d])\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "30d Average",
@@ -561,7 +561,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 5
       },
       "id": 8,
       "options": {
@@ -581,7 +581,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_difficulty{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} or \n    chia_full_node_difficulty{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_difficulty{network=\"$network\"} or \n    chia_full_node_difficulty{network=\"$network\"} !=0\n  )\n)",
           "instant": false,
           "interval": "",
           "legendFormat": "Difficulty",
@@ -674,7 +674,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 5
       },
       "id": 4,
       "options": {
@@ -694,7 +694,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_height{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} or\n    chia_full_node_node_height{application=\"chia-blockchain\",network=\"$network\",component=\"node\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Height",
           "refId": "A"
@@ -705,7 +705,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "($__range_s/(\n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"}\n    ) != 0\n  ) - \n  sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} offset $__range or\n      chia_full_node_node_height{application=\"chia-blockchain\", network=\"$network\",component=\"node\"} offset $__range\n    ) != 0\n  )\n))/18.75",
+          "expr": "($__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n))/18.75",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -785,7 +785,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 16
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -805,7 +805,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Compact",
           "refId": "A"
@@ -816,7 +816,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} or\n    chia_full_node_uncompact_blocks{application=\"chia-blockchain\", network=\"$network\", component=\"node\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{network=\"$network\"} !=0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Uncompact",
@@ -882,7 +882,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 16
+        "y": 13
       },
       "id": 42,
       "options": {
@@ -902,7 +902,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max(rate(chia_full_node_total_signage_points{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[5m])*9.375)",
+          "expr": "max(\n  rate(\n    chia_full_node_total_signage_points{network=\"$network\"}[5m]\n  ) * 9.375\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "SPs/9.375s",
@@ -937,7 +937,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 16
+        "y": 13
       },
       "id": 41,
       "options": {
@@ -960,7 +960,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum by(size) (rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) / ignoring(size) group_left sum(rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) != 0",
+          "expr": "sum by(size) (\n  rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) / \n  ignoring(size) group_left sum(rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) != 0",
           "hide": false,
           "interval": "",
           "legendFormat": "{{size}}",
@@ -1014,6 +1014,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 15,
+  "version": 17,
   "weekStart": ""
 }
