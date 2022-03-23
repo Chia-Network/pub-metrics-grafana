@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1648069612211,
+  "iteration": 1648071649828,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -968,6 +968,16 @@
         }
       ],
       "title": "Plot K Size",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "pattern": "[0-9]{2}"
+            }
+          }
+        }
+      ],
       "type": "bargauge"
     }
   ],
@@ -1014,6 +1024,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 17,
+  "version": 18,
   "weekStart": ""
 }
