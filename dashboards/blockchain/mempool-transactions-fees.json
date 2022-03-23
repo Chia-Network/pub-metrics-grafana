@@ -695,7 +695,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{network=\"$network\"})\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{network=\"$network\", cost=\"5000000\"})\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "5,000,000",
