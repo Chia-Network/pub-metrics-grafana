@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1648072061289,
+  "iteration": 1648159959504,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -115,7 +115,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_full_node_mempool_size{network=\"$network\"} or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    (\n      chia_full_node_mempool_size{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n    ) or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Spends",
           "refId": "A"
@@ -212,7 +212,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"})\n) !=0",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) !=0",
           "hide": false,
           "interval": "",
           "legendFormat": "Mempool Cost",
@@ -749,6 +749,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }
