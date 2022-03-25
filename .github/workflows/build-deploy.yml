@@ -55,5 +55,5 @@ jobs:
 
       - name: Trigger deploy
         run: |
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/start
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/success/deploy
+          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/start
+          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/success/deploy
