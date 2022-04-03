@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.4.3"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -21,8 +64,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1648163321814,
+  "id": null,
+  "iteration": 1649006980420,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -82,12 +125,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        (chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)) !=0\n    )\n)",
@@ -142,12 +185,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"}) !=0))\n- \nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        chia_full_node_netspace_mib{network=\"$network\"} offset $__range) != 0))",
@@ -201,12 +244,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
@@ -260,12 +303,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
@@ -319,12 +362,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
@@ -378,12 +421,12 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "$__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
@@ -474,14 +517,15 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)",
@@ -493,7 +537,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[30d])\n)",
@@ -571,14 +615,15 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_difficulty{network=\"$network\"} or \n    ( chia_full_node_difficulty{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) ) !=0\n  )\n)",
@@ -684,14 +729,15 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
@@ -702,7 +748,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "($__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n))/18.75",
@@ -795,14 +841,15 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{network=\"$network\"} !=0\n  )\n)",
@@ -813,7 +860,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{network=\"$network\"} !=0\n  )\n)",
@@ -892,14 +939,15 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "max(\n  rate(\n    chia_full_node_total_signage_points{network=\"$network\"}[5m]\n  ) * 9.375\n)",
@@ -952,12 +1000,12 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum by(size) (\n  rate(chia_full_node_k_size{network=\"$network\"}[$__range])) / \n  ignoring(size) group_left sum(rate(chia_full_node_k_size{network=\"$network\"}[$__range])) != 0",
@@ -982,7 +1030,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 34,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [
     "blockchain"
@@ -991,11 +1039,7 @@
     "list": [
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "mainnet",
-          "value": "mainnet"
-        },
+        "current": {},
         "definition": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
         "description": "The network to filter results by",
         "hide": 0,
@@ -1012,7 +1056,8 @@
         "regex": ".*network=\"(.*)\".*",
         "skipUrlSync": false,
         "sort": 5,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_PROMETHEUS}"
       }
     ]
   },
@@ -1024,6 +1069,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 19,
+  "version": 1,
   "weekStart": ""
 }
