@@ -960,7 +960,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum by(size) (\n  rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) / \n  ignoring(size) group_left sum(rate(chia_full_node_k_size{application=\"chia-blockchain\", network=\"$network\", component=\"node\"}[$__range])) != 0",
+          "expr": "sum by(size) (\n  rate(chia_full_node_k_size{network=\"$network\"}[$__range])) / \n  ignoring(size) group_left sum(rate(chia_full_node_k_size{network=\"$network\"}[$__range])) != 0",
           "hide": false,
           "interval": "",
           "legendFormat": "{{size}}",
