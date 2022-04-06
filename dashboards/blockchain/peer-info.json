@@ -21,8 +21,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1647524149287,
+  "id": 2,
+  "iteration": 1649264444874,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -94,7 +94,7 @@
         "rgba(237, 129, 40, 0.89)"
       ],
       "decimals": 0,
-      "description": "Peer distribution within a country is not reflected",
+      "description": "Peer distribution within a country/region is not reflected",
       "esMetric": "Count",
       "gridPos": {
         "h": 12,
@@ -136,13 +136,14 @@
         }
       ],
       "thresholds": "",
-      "title": "Peer Map (By Country)",
+      "title": "Peer Map (By Country/Region)",
       "type": "grafana-worldmap-panel",
       "unitPlural": "",
       "unitSingle": "",
       "valueName": "total"
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -182,12 +183,7 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Gossiped Peer Count"
-          }
-        ]
+        "sortBy": []
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -206,7 +202,7 @@
           "refId": "A"
         }
       ],
-      "title": "Country Counts",
+      "title": "Country/Region Counts",
       "transformations": [
         {
           "id": "organize",
@@ -227,7 +223,8 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value #A": "Gossiped Peer Count"
+              "Value #A": "Gossiped Peer Count",
+              "country_display": "Country / Region"
             }
           }
         }
@@ -956,6 +953,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }
