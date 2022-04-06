@@ -22,12 +22,12 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1649265508668,
+  "iteration": 1649266930656,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "description": "Reliable nodes are nodes that allow inbound connections and have available space for more peers to connect",
+      "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -52,7 +52,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 18,
+      "id": 19,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -76,14 +76,14 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
-          "legendFormat": "Reliable Nodes",
+          "legendFormat": "Total - 5 Days",
           "refId": "A"
         }
       ],
-      "title": "Reliable Nodes",
+      "title": "Total Nodes - 5 Days",
       "type": "stat"
     },
     {
@@ -237,7 +237,7 @@
       "type": "table"
     },
     {
-      "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
+      "description": "Nodes with additional capacity are nodes that allow inbound connections and have available space for more peers to connect",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -262,7 +262,7 @@
         "x": 0,
         "y": 3
       },
-      "id": 19,
+      "id": 18,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -286,14 +286,14 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
-          "legendFormat": "Total - 5 Days",
+          "legendFormat": "Reliable Nodes",
           "refId": "A"
         }
       ],
-      "title": "Total Nodes - 5 Days",
+      "title": "Nodes with Additional Capacity",
       "type": "stat"
     },
     {
@@ -958,6 +958,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
