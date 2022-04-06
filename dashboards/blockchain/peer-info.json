@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1649264444874,
+  "iteration": 1649265508668,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -183,7 +183,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Gossiped Peer Count"
+          }
+        ]
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -953,6 +958,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
