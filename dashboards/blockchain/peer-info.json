@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1649266930656,
+  "iteration": 1649273399891,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -289,7 +289,7 @@
           "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
-          "legendFormat": "Reliable Nodes",
+          "legendFormat": "Nodes with Additional Capacity",
           "refId": "A"
         }
       ],
@@ -745,7 +745,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Reliable nodes are nodes that allow inbound connections and have available space for more peers to connect",
+      "description": "Nodes with additional capacity are nodes that allow inbound connections and have available space for more peers to connect",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -822,11 +822,11 @@
           "exemplar": false,
           "expr": "max without(pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "interval": "",
-          "legendFormat": "Reliable Nodes",
+          "legendFormat": "Nodes with Additional Capacity",
           "refId": "A"
         }
       ],
-      "title": "Reliable Nodes",
+      "title": "Nodes with Additional Capacity",
       "type": "timeseries"
     },
     {
@@ -958,6 +958,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
