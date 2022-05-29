@@ -22,10 +22,26 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1649273399891,
+  "iteration": 1653852340271,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "description": "",
+      "gridPos": {
+        "h": 3,
+        "w": 17,
+        "x": 0,
+        "y": 0
+      },
+      "id": 31,
+      "options": {
+        "content": "# Rebuilding Peer Data\n\n⚠️ We are currently in the process of re-crawling the network for peer counts. We expect peer counts to be lower than expected until this process is completed. ⚠️",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.3.3",
+      "type": "text"
+    },
     {
       "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
       "fieldConfig": {
@@ -50,7 +66,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 3
       },
       "id": 19,
       "options": {
@@ -100,7 +116,7 @@
         "h": 12,
         "w": 9,
         "x": 3,
-        "y": 0
+        "y": 3
       },
       "hideEmpty": false,
       "hideZero": false,
@@ -171,7 +187,7 @@
         "h": 12,
         "w": 5,
         "x": 12,
-        "y": 0
+        "y": 3
       },
       "id": 28,
       "options": {
@@ -260,7 +276,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 3
+        "y": 6
       },
       "id": 18,
       "options": {
@@ -320,7 +336,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 6
+        "y": 9
       },
       "id": 29,
       "options": {
@@ -380,7 +396,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 9
+        "y": 12
       },
       "id": 20,
       "options": {
@@ -421,7 +437,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 15
       },
       "id": 16,
       "title": "Version Distribution",
@@ -448,7 +464,7 @@
         "h": 12,
         "w": 7,
         "x": 0,
-        "y": 13
+        "y": 16
       },
       "id": 22,
       "options": {
@@ -513,7 +529,7 @@
         "h": 12,
         "w": 17,
         "x": 7,
-        "y": 13
+        "y": 16
       },
       "id": 2,
       "options": {
@@ -556,7 +572,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
       "id": 14,
       "panels": [
@@ -653,7 +669,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 12,
       "title": "Nodes",
@@ -715,7 +731,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "id": 8,
       "options": {
@@ -800,7 +816,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 27
+        "y": 30
       },
       "id": 6,
       "options": {
@@ -885,7 +901,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 27
+        "y": 30
       },
       "id": 4,
       "options": {
@@ -958,6 +974,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
