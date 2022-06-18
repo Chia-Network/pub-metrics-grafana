@@ -1,3 +1,5 @@
 # Public Metrics Grafana Dashboards
 
-Prometheus dashboards for Chia Blockchain
+Grafana dashboards for Chia Blockchain.
+
+View the dashboards here: https://dashboard.chia.net/

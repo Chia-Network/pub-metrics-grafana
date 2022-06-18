@@ -27,22 +27,6 @@
   "liveNow": false,
   "panels": [
     {
-      "description": "",
-      "gridPos": {
-        "h": 3,
-        "w": 17,
-        "x": 0,
-        "y": 0
-      },
-      "id": 31,
-      "options": {
-        "content": "# Rebuilding Peer Data\n\n⚠️ We are currently in the process of re-crawling the network for peer counts. We expect peer counts to be lower than expected until this process is completed. ⚠️",
-        "mode": "markdown"
-      },
-      "pluginVersion": "8.3.3",
-      "type": "text"
-    },
-    {
       "description": "This is the total number of nodes gossiped in the last 5 days. Does not mean we were able to connect to them.",
       "fieldConfig": {
         "defaults": {
