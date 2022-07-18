@@ -805,7 +805,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{component=\"node\",network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Compact",
           "refId": "A"
@@ -816,7 +816,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{component=\"node\",network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Uncompact",
