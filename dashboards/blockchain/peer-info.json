@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1653852340271,
+  "iteration": 1659119937840,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -50,7 +50,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 3
+        "y": 0
       },
       "id": 19,
       "options": {
@@ -100,7 +100,7 @@
         "h": 12,
         "w": 9,
         "x": 3,
-        "y": 3
+        "y": 0
       },
       "hideEmpty": false,
       "hideZero": false,
@@ -171,7 +171,7 @@
         "h": 12,
         "w": 5,
         "x": 12,
-        "y": 3
+        "y": 0
       },
       "id": 28,
       "options": {
@@ -237,7 +237,7 @@
       "type": "table"
     },
     {
-      "description": "Nodes with additional capacity are nodes that allow inbound connections and have available space for more peers to connect",
+      "description": "Nodes with available connections are nodes that allow inbound connections and have available space for more peers to connect",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -260,7 +260,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 6
+        "y": 3
       },
       "id": 18,
       "options": {
@@ -293,7 +293,7 @@
           "refId": "A"
         }
       ],
-      "title": "Nodes with Additional Capacity",
+      "title": "Nodes with Available Connections",
       "type": "stat"
     },
     {
@@ -320,7 +320,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 9
+        "y": 6
       },
       "id": 29,
       "options": {
@@ -380,7 +380,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 12
+        "y": 9
       },
       "id": 20,
       "options": {
@@ -421,13 +421,14 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 12
       },
       "id": 16,
       "title": "Version Distribution",
       "type": "row"
     },
     {
+      "description": "Shows the percentage of peers that have been discovered on each version.\n\nNote that the version AFTER the currently released version may also show up due to peers running dev versions of the software.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -448,7 +449,7 @@
         "h": 12,
         "w": 7,
         "x": 0,
-        "y": 16
+        "y": 13
       },
       "id": 22,
       "options": {
@@ -491,6 +492,7 @@
       "type": "piechart"
     },
     {
+      "description": "Shows the number of peers that have been discovered on each version.\n\nNote that the version AFTER the currently released version may also show up due to peers running dev versions of the software.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -513,7 +515,7 @@
         "h": 12,
         "w": 17,
         "x": 7,
-        "y": 16
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -556,7 +558,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 25
       },
       "id": 14,
       "panels": [
@@ -600,7 +602,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -612,7 +615,7 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 24,
             "w": 24,
             "x": 0,
             "y": 26
@@ -653,7 +656,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 26
       },
       "id": 12,
       "title": "Nodes",
@@ -715,7 +718,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 27
       },
       "id": 8,
       "options": {
@@ -745,7 +748,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Nodes with additional capacity are nodes that allow inbound connections and have available space for more peers to connect",
+      "description": "Nodes with available connections are nodes that allow inbound connections and have available space for more peers to connect",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -800,7 +803,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 27
       },
       "id": 6,
       "options": {
@@ -826,7 +829,7 @@
           "refId": "A"
         }
       ],
-      "title": "Nodes with Additional Capacity",
+      "title": "Nodes with Available Connections",
       "type": "timeseries"
     },
     {
@@ -885,7 +888,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 27
       },
       "id": 4,
       "options": {
@@ -958,6 +961,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 10,
+  "version": 12,
   "weekStart": ""
 }

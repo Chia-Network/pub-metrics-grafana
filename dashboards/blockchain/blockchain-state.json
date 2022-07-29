@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1648163321814,
+  "iteration": 1659118457862,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -40,7 +40,7 @@
       "type": "row"
     },
     {
-      "description": "",
+      "description": "Estimated total size of plots being farmed",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -161,6 +161,7 @@
       "type": "stat"
     },
     {
+      "description": "Number of blocks in the blockchain",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -279,6 +280,7 @@
       "type": "stat"
     },
     {
+      "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -337,7 +339,7 @@
       "type": "stat"
     },
     {
-      "description": "",
+      "description": "Based on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds.\n\nIf this number is less than 18.75, the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.\n\nIf the number is greater than 18.75, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -392,7 +394,7 @@
           "refId": "A"
         }
       ],
-      "title": "Seconds per Block",
+      "title": "Seconds per Block (18.75 Target)",
       "type": "stat"
     },
     {
@@ -409,6 +411,7 @@
       "type": "row"
     },
     {
+      "description": "Estimated total size of plots being farmed",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -507,6 +510,7 @@
       "type": "timeseries"
     },
     {
+      "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -592,6 +596,7 @@
       "type": "timeseries"
     },
     {
+      "description": "Height: Number of blocks in the blockchain\n\nBlocks per 18.75 seconds:\nBased on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds.\n\nIf this number is less than 1, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.\n\nIf the number is greater than 1,  the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -705,7 +710,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "($__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n))/18.75",
+          "expr": "1+\n(1-\n($__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n))/18.75)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -717,7 +722,7 @@
       "type": "timeseries"
     },
     {
-      "description": "",
+      "description": "In a block, there are a number of proofs. Each proof starts out in the \"uncompact\" form, which is quick to generate in real time, but takes longer to validate when syncing. \n\nBlueboxes find uncompact proofs and compact them into a more compact form that is quicker to validate when syncing and broadcasts them to the network so peers can replace them in their database.\n\nCompact Block: A block that has all supported proofs compacted. (There are some proofs that are not currently configured to be compacted by blueboxes)\n\nUncompact Block: A block with at least one proof that is not compacted, but could be compacted by a bluebox (could be partially compacted).\n\nWant to help generate compact proofs? Read about how to run a bluebox timelord here: https://github.com/Chia-Network/chia-blockchain/wiki/Timelords#bluebox-timelords",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -827,7 +832,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Shows signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1.",
+      "description": "Shows number of signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1. This is an indication of timelord performance.\n\nRead more about signage points and the 9.375 second target here: https://docs.chia.net/docs/03consensus/signage_points_and_infusion_points/",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -909,11 +914,11 @@
           "refId": "B"
         }
       ],
-      "title": "Signage Points per 9.375s",
+      "title": "Signage Points per 9.375s (Target 1)",
       "type": "timeseries"
     },
     {
-      "description": "Shows winning plot sizes for the selected timeframe",
+      "description": "Shows winning plot sizes for the selected timeframe.\n\nPlotting Docs: https://docs.chia.net/docs/03consensus/proof-of-space#plotting",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1024,6 +1029,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 19,
+  "version": 22,
   "weekStart": ""
 }
