@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1659104045873,
+  "iteration": 1659114596852,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -40,6 +40,7 @@
       "type": "row"
     },
     {
+      "description": "How many individual spends are currently in the mempool",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -125,6 +126,7 @@
       "type": "timeseries"
     },
     {
+      "description": "This shows the current cost of the mempool (how full the mempool is). Once the mempool is full, a fee is required to kick other lower fee transactions out to get your transaction included in the mempool.\n\nOnce a transaction is in the mempool, it will be included in blocks as there is space. Typically the highest \"fee per cost\" are included in blocks first.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -335,6 +337,7 @@
       "type": "timeseries"
     },
     {
+      "description": "How full each block is. Currently, there is a cap of 50%.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -520,7 +523,7 @@
       "type": "row"
     },
     {
-      "description": "",
+      "description": "This shows the sum of fees that were actually paid for transactions that have been included in blocks.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -623,7 +626,7 @@
       "type": "timeseries"
     },
     {
-      "description": "",
+      "description": "Shows the minimum fee required to get into the mempool for a particular transaction cost. This does not guarantee that you will get into a block soon, it just indicates that for the given cost and fee, you will get into the mempool.\n\nFor each cost, if there is at least that much room in the mempool, the minimum fee will be zero.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -749,6 +752,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
