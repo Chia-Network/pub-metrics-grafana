@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1648159959504,
+  "iteration": 1659104045873,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -412,7 +412,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) /\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
           "interval": "",
           "legendFormat": "Block Percent Full",
           "refId": "A"
@@ -749,6 +749,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 12,
+  "version": 13,
   "weekStart": ""
 }
