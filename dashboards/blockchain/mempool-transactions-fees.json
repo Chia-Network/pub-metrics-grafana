@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1659116200434,
+  "iteration": 1659117690806,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -40,7 +40,7 @@
       "type": "row"
     },
     {
-      "description": "How many individual spendbundles are currently in the mempool",
+      "description": "How many individual spendbundles are currently in the mempool\n\nSpendbundle Docs: https://chialisp.com/docs/coin_lifecycle#spend-bundles",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -251,7 +251,7 @@
       "type": "row"
     },
     {
-      "description": "This is based on a transaction of 5,000,000 cost. Since cost can vary based on a number of factors, the true number of transactions will vary.",
+      "description": "This is based on a transaction of 5,000,000 cost (estimated standard transaction cost). Since cost can vary based on a number of factors, the true number of transactions will vary.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -346,7 +346,7 @@
           "custom": {
             "axisLabel": "",
             "axisPlacement": "auto",
-            "axisSoftMax": 1,
+            "axisSoftMax": 0.6,
             "axisSoftMin": 0,
             "barAlignment": 0,
             "drawStyle": "line",
@@ -389,7 +389,23 @@
           },
           "unit": "percentunit"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Current Block Cap"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -419,13 +435,25 @@
           "interval": "",
           "legendFormat": "Block Percent Full",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": true,
+          "expr": ".5",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Current Block Cap",
+          "refId": "B"
         }
       ],
       "title": "Block Percent Full",
       "type": "timeseries"
     },
     {
-      "description": "Currently, this is # of CAT transactions. In the future, when we have more than just CATs, this will be more like # of Smart Transactions",
+      "description": "Total number of smart transactions to date (CATs, NFTs, etc)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -506,7 +534,7 @@
           "refId": "A"
         }
       ],
-      "title": "Hint Count",
+      "title": "Smart Transactions (Hint Count)",
       "type": "timeseries"
     },
     {
@@ -626,7 +654,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Shows the minimum fee required to get into the mempool for a particular transaction cost. This does not guarantee that you will get into a block soon, it just indicates that for the given cost and fee, you will get into the mempool.\n\nFor each cost, if there is at least that much room in the mempool, the minimum fee will be zero.",
+      "description": "Shows the minimum fee per cost required to get into the mempool for a particular transaction cost. This does not guarantee that you will get into a block soon, it just indicates that for the given cost and fee, you will get into the mempool.\n\nFor each cost, if there is at least that much room in the mempool, the minimum fee will be zero.\n\nCost Docs: https://chialisp.com/docs/clvm/lang_reference#costs",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -701,11 +729,11 @@
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{network=\"$network\", cost=\"5000000\"})\n)",
           "hide": false,
           "interval": "",
-          "legendFormat": "5,000,000",
+          "legendFormat": "5,000,000 (Standard TX)",
           "refId": "B"
         }
       ],
-      "title": "Mempool Fees / Cost",
+      "title": "Mempool Entrance Fee (Fee per Cost)",
       "type": "timeseries"
     }
   ],
@@ -752,6 +780,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 15,
+  "version": 16,
   "weekStart": ""
 }
