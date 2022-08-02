@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1659118457862,
+  "iteration": 1659466858342,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -710,7 +710,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "1+\n(1-\n($__range_s/(\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n))/18.75)",
+          "expr": "((\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)/$__range_s)*18.75",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -986,7 +986,7 @@
       "type": "bargauge"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [
@@ -1029,6 +1029,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 22,
+  "version": 23,
   "weekStart": ""
 }
