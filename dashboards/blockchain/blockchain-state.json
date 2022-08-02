@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1659466858342,
+  "iteration": 1659469583756,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -596,7 +596,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Height: Number of blocks in the blockchain\n\nBlocks per 18.75 seconds:\nBased on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds.\n\nIf this number is less than 1, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.\n\nIf the number is greater than 1,  the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.",
+      "description": "Height: Number of blocks in the blockchain\n\nBlocks per 18.75 seconds:\nBased on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds. The rate of blocks is calculated based on a rolling one hour window.\n\nIf this number is less than 1, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.\n\nIf the number is greater than 1,  the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -710,7 +710,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": true,
-          "expr": "((\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)/$__range_s)*18.75",
+          "expr": "((\n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset 3600s or\n      chia_full_node_node_height{network=\"$network\"} offset 3600s\n    ) != 0\n  )\n)/(3600/18.75))",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -986,7 +986,7 @@
       "type": "bargauge"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 34,
   "style": "dark",
   "tags": [
@@ -997,7 +997,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1029,6 +1029,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 23,
+  "version": 24,
   "weekStart": ""
 }
