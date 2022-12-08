@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 concurrency:
   group: "pub-metrics-grafana"
@@ -12,7 +13,7 @@ jobs:
   package:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Docker Context for Buildx
         id: buildx-context
@@ -20,16 +21,16 @@ jobs:
           docker context create builders
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
         with:
           version: latest
           endpoint: builders
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -37,7 +38,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: |
             ghcr.io/chia-network/pub-metrics-grafana
@@ -46,7 +47,7 @@ jobs:
             type=sha,format=long
 
       - name: Build Docker Container
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -54,6 +55,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 
       - name: Trigger deploy
+        if: github.event_name == 'push' && github.ref == 'main'
         run: |
           curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/start
           curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/success/deploy
