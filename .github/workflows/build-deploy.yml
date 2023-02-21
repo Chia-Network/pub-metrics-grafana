@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+  packages: write
+
 concurrency:
   group: "pub-metrics-grafana"
 
@@ -53,7 +58,46 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-      - name: Trigger deploy
-        run: |
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/start
-          curl -s -XPOST -H "Authorization: Bearer ${{ secrets.GLUE_ACCESS_TOKEN }}" --data '{"sha":"${{ github.sha }}"}' ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/${{ github.sha }}/success/deploy
+  deploy:
+    needs:
+      - package
+    runs-on: [k8s-public]
+    container:
+      image: registry.gitlab.com/cmmarslender/kubectl-helm:v3.11.1
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Vault Login
+        uses: Chia-Network/actions/vault/login@main
+        with:
+          vault_url: ${{ secrets.VAULT_URL }}
+          role_name: github-pub-metrics-grafana
+
+      - name: Get secrets from vault
+        uses: hashicorp/vault-action@v2
+        with:
+          url: ${{ secrets.VAULT_URL }}
+          token: ${{ env.VAULT_TOKEN }}
+          secrets: |
+            secret/data/pub-metrics-eks/rds/rds-info db_host | BLOCK_METRICS_DB_HOST;
+            secret/data/pub-metrics-eks/rds/blocks-read-user username | BLOCK_METRICS_USER;
+            secret/data/pub-metrics-eks/rds/blocks-read-user password | BLOCK_METRICS_PASSWORD;
+
+      - name: Get ephemeral aws credentials
+        uses: Chia-Network/actions/vault/aws-sts@main
+        with:
+          vault_url: ${{ secrets.VAULT_URL }}
+          vault_token: ${{ env.VAULT_TOKEN }}
+          role_name: pub-metrics-deploy
+
+      - name: Log in to cluster
+        run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
+
+      - uses: Chia-Network/actions/helm/deploy@main
+        env:
+          IMAGE_TAG: "sha-${{ github.sha }}"
+        with:
+          namespace: grafana
+          app_name: grafana
+          helm_chart: "./helm/pub-metrics-grafana"
+          helm_values: "./helm/values.yaml"
