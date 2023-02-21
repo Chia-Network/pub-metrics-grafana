@@ -1,0 +1,56 @@
+replicaCount: 3
+
+image:
+  pullPolicy: IfNotPresent
+  tag: {{ IMAGE_TAG }}
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+  hosts:
+    - host: dashboard.chia.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - dashboard.chia.net
+
+env:
+  - name: GF_SERVER_ROOT_URL
+    value: "https://dashboard.chia.net"
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - grafana
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - pub-metrics-grafana
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+        weight: 100
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - grafana
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - pub-metrics-grafana
+          topologyKey: kubernetes.io/hostname
+        weight: 100
