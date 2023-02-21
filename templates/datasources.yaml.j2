@@ -8,6 +8,7 @@ datasources:
     isDefault: True
     version: 1
     editable: False
+    uid: PB06BBC9CA81C548D
   - name: prometheus-no-history
     type: prometheus
     access: proxy
@@ -20,6 +21,7 @@ datasources:
     type: mysql
     url: {{ BLOCK_METRICS_DB_HOST }}:3306
     database: blocks
+    uid: P00A25F4DA48796D5
     user: '{{ BLOCK_METRICS_USER }}'
     secureJsonData:
       password: '{{ BLOCK_METRICS_PASSWORD }}'
