@@ -81,9 +81,11 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -250,9 +252,11 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -417,6 +421,6 @@
   "timezone": "",
   "title": "Nakamoto Coefficient",
   "uid": "6S16D9AVk",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
