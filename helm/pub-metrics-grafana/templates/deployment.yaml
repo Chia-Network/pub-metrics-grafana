@@ -49,8 +49,15 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          volumeMounts:
+            - name: datasources
+              mountPath: /etc/grafana/provisioning/datasources
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: datasources
+          secret:
+            secretName: {{ include "pub-metrics-grafana.fullname" . }}-datasources
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
