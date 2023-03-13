@@ -1,9 +1,13 @@
+
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -22,12 +26,15 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1659117690806,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -36,10 +43,23 @@
       },
       "id": 10,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Mempool",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "How many individual spendbundles are currently in the mempool\n\nSpendbundle Docs: https://chialisp.com/docs/coin_lifecycle#spend-bundles",
       "fieldConfig": {
         "defaults": {
@@ -47,6 +67,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMin": 0,
@@ -103,10 +125,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -126,6 +150,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "This shows the current cost of the mempool (how full the mempool is). Once the mempool is full, a fee is required to kick other lower fee transactions out to get your transaction included in the mempool.\n\nOnce a transaction is in the mempool, it will be included in blocks as there is space. Typically the highest \"fee per cost\" are included in blocks first.\n\nCost Info: https://chialisp.com/docs/clvm/lang_reference#costs",
       "fieldConfig": {
         "defaults": {
@@ -133,6 +161,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -201,10 +231,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -239,6 +271,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -247,10 +283,23 @@
       },
       "id": 45,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Transactions",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "This is based on a transaction of 5,000,000 cost (estimated standard transaction cost). Since cost can vary based on a number of factors, the true number of transactions will vary.",
       "fieldConfig": {
         "defaults": {
@@ -258,6 +307,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMin": 0,
@@ -314,10 +365,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -337,6 +390,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "How full each block is. Currently, there is a cap of 50%.",
       "fieldConfig": {
         "defaults": {
@@ -344,6 +401,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMax": 0.6,
@@ -418,10 +477,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -430,11 +491,51 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
           "interval": "",
-          "legendFormat": "Block Percent Full",
+          "legendFormat": "Instant",
+          "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n)\n/\n(\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n    )  \n    *\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "hide": false,
+          "legendFormat": "1h Trailing",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n)\n/\n(\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n    )  \n    *\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "1d Trailing",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n)\n/\n(\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n    )  \n    *\n    sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "7d Trailing",
+          "range": true,
+          "refId": "C"
         },
         {
           "datasource": {
@@ -453,6 +554,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Total number of smart transactions to date (CATs, NFTs, etc)",
       "fieldConfig": {
         "defaults": {
@@ -460,6 +565,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -515,10 +622,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -539,6 +648,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -547,10 +660,23 @@
       },
       "id": 43,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Fees",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "This shows the sum of fees that were actually paid for transactions that have been included in blocks.",
       "fieldConfig": {
         "defaults": {
@@ -558,6 +684,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -631,10 +759,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -654,6 +784,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Shows the minimum fee per cost required to get into the mempool for a particular transaction cost. This does not guarantee that you will get into a block soon, it just indicates that for the given cost and fee, you will get into the mempool.\n\nFor each cost, if there is at least that much room in the mempool, the minimum fee will be zero.\n\nCost Docs: https://chialisp.com/docs/clvm/lang_reference#costs",
       "fieldConfig": {
         "defaults": {
@@ -661,6 +795,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -713,10 +849,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -738,7 +876,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "blockchain"
@@ -751,6 +889,10 @@
           "selected": false,
           "text": "mainnet",
           "value": "mainnet"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PB06BBC9CA81C548D"
         },
         "definition": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
         "description": "The network to filter results by",
@@ -780,6 +922,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 16,
+  "version": 18,
   "weekStart": ""
 }
