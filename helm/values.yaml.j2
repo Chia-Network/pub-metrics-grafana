@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: {{ REPLICAS }}
 
 image:
   pullPolicy: IfNotPresent
@@ -13,7 +13,7 @@ ingress:
     alb.ingress.kubernetes.io/scheme: "internet-facing"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
   hosts:
-    - host: dashboard.chia.net
+    - host: {{ HOSTNAME }}
       paths:
         - path: /
           pathType: Prefix
@@ -23,7 +23,7 @@ ingress:
 
 env:
   - name: GF_SERVER_ROOT_URL
-    value: "https://dashboard.chia.net"
+    value: "https://{{ HOSTNAME }}"
 
 affinity:
   podAntiAffinity:
