@@ -61,6 +61,8 @@ jobs:
 
       - uses: Chia-Network/actions/helm/deploy@main
         env:
+          REPLICAS: 3
+          HOSTNAME: "dashboard.chia.net"
           IMAGE_TAG: "sha-${{ github.sha }}"
         with:
           namespace: grafana
