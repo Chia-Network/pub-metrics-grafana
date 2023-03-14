@@ -67,6 +67,7 @@ jobs:
           REPLICAS: 1
           HOSTNAME: "${{ github.event.pull_request.number }}.dashboard.chia.net"
           IMAGE_TAG: "sha-${{ github.sha }}"
+          REVIEW_SLUG: ${{ github.event.pull_request.number }}
         with:
           namespace: grafana
           app_name: "grafana-${{ env.REVIEW_SLUG }}"
