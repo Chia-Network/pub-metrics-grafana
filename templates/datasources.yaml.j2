@@ -20,8 +20,9 @@ datasources:
   - name: block-data
     type: mysql
     url: {{ BLOCK_METRICS_DB_HOST }}:3306
-    database: blocks
     uid: P00A25F4DA48796D5
     user: '{{ BLOCK_METRICS_USER }}'
+    jsonData:
+      database: blocks
     secureJsonData:
       password: '{{ BLOCK_METRICS_PASSWORD }}'
