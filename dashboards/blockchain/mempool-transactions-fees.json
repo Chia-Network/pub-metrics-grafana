@@ -776,7 +776,7 @@
           "exemplar": true,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"})\n) / 1000000000000",
           "interval": "",
-          "legendFormat": "Block Fees",
+          "legendFormat": "Instant",
           "range": true,
           "refId": "A"
         },
