@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -22,12 +25,15 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1659469583756,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -36,10 +42,23 @@
       },
       "id": 27,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Summary",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Estimated total size of plots being farmed",
       "fieldConfig": {
         "defaults": {
@@ -82,7 +101,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -100,6 +119,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "How much the netspace has changed during the selected timeframe",
       "fieldConfig": {
         "defaults": {
@@ -142,7 +165,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -161,6 +184,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Number of blocks in the blockchain",
       "fieldConfig": {
         "defaults": {
@@ -202,7 +229,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -220,6 +247,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "How much the blockchain height has changed by during the selected timeframe",
       "fieldConfig": {
         "defaults": {
@@ -261,7 +292,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -280,6 +311,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
       "fieldConfig": {
         "defaults": {
@@ -321,7 +356,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -339,6 +374,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Based on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds.\n\nIf this number is less than 18.75, the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.\n\nIf the number is greater than 18.75, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.",
       "fieldConfig": {
         "defaults": {
@@ -380,7 +419,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -399,6 +438,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -407,10 +450,23 @@
       },
       "id": 10,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Blockchain",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Estimated total size of plots being farmed",
       "fieldConfig": {
         "defaults": {
@@ -418,6 +474,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -474,10 +532,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -498,11 +558,25 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
+          "expr": "topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[7d])\n)",
+          "hide": false,
+          "legendFormat": "7d Average",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[30d])\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "30d Average",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -510,6 +584,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
       "fieldConfig": {
         "defaults": {
@@ -517,6 +595,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 1,
@@ -572,10 +652,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -596,6 +678,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Height: Number of blocks in the blockchain\n\nBlocks per 18.75 seconds:\nBased on 86400 seconds in a day and a target of 4608 blocks in a day, we expect a block every 18.75 seconds. The rate of blocks is calculated based on a rolling one hour window.\n\nIf this number is less than 1, the chain is moving slower than the target, and you would expect difficulty to decrease at the next adjustment.\n\nIf the number is greater than 1,  the chain is moving faster than the target and you would expect difficulty to increase at the next adjustment.",
       "fieldConfig": {
         "defaults": {
@@ -603,6 +689,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -686,10 +774,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -722,6 +812,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "In a block, there are a number of proofs. Each proof starts out in the \"uncompact\" form, which is quick to generate in real time, but takes longer to validate when syncing. \n\nBlueboxes find uncompact proofs and compact them into a more compact form that is quicker to validate when syncing and broadcasts them to the network so peers can replace them in their database.\n\nCompact Block: A block that has all supported proofs compacted. (There are some proofs that are not currently configured to be compacted by blueboxes)\n\nUncompact Block: A block with at least one proof that is not compacted, but could be compacted by a bluebox (could be partially compacted).\n\nWant to help generate compact proofs? Read about how to run a bluebox timelord here: https://github.com/Chia-Network/chia-blockchain/wiki/Timelords#bluebox-timelords",
       "fieldConfig": {
         "defaults": {
@@ -729,6 +823,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -797,10 +893,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -832,6 +930,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Shows number of signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1. This is an indication of timelord performance.\n\nRead more about signage points and the 9.375 second target here: https://docs.chia.net/docs/03consensus/signage_points_and_infusion_points/",
       "fieldConfig": {
         "defaults": {
@@ -839,6 +941,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -894,10 +998,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -918,6 +1024,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Shows winning plot sizes for the selected timeframe.\n\nPlotting Docs: https://docs.chia.net/docs/03consensus/proof-of-space#plotting",
       "fieldConfig": {
         "defaults": {
@@ -947,6 +1057,8 @@
       "id": 41,
       "options": {
         "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -957,7 +1069,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.3",
       "targets": [
         {
           "datasource": {
@@ -986,8 +1098,9 @@
       "type": "bargauge"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 34,
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "blockchain"
@@ -997,9 +1110,13 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "mainnet",
           "value": "mainnet"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PB06BBC9CA81C548D"
         },
         "definition": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
         "description": "The network to filter results by",
@@ -1029,6 +1146,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 24,
+  "version": 25,
   "weekStart": ""
 }
