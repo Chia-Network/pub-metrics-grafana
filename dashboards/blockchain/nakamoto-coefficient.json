@@ -373,7 +373,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select \n\trow_number() over (order by count(*) desc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \ngroup by farmer_address order by count DESC limit 250;\n",
+          "rawSql": "select \n\trow_number() over (order by count(*) desc, farmer_address asc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \ngroup by farmer_address order by count DESC, farmer_address ASC limit 250;\n",
           "refId": "A",
           "sql": {
             "columns": [
