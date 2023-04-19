@@ -825,7 +825,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "Shows the minimum fee per cost required to get into the mempool for a particular transaction cost. This does not guarantee that you will get into a block soon, it just indicates that for the given cost and fee, you will get into the mempool.\n\nFor each cost, if there is at least that much room in the mempool, the minimum fee will be zero.\n\nCost Docs: https://chialisp.com/docs/clvm/lang_reference#costs",
+      "description": "Shows the current fee estimate for an average \"send xch\" transaction for the specified target block inclusion timeframes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -881,6 +881,240 @@
         "x": 8,
         "y": 19
       },
+      "id": 51,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"60\"})/1000000000000\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "1m Target",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"300\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "5m Target",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"900\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "15m Target",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Fee Estimate - Send XCH",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Shows the current fee estimate for an average \"send cat\" transaction for the specified target block inclusion timeframes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 19
+      },
+      "id": 50,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"60\"})/1000000000000\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "1m Target",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"300\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "5m Target",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"900\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "15m Target",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Fee Estimate - Send Cat",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Shows the current fee estimate for an average \"transfer nft\" transaction for the specified target block inclusion timeframes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
       "id": 41,
       "options": {
         "legend": {
@@ -900,15 +1134,158 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_mempool_min_fee{network=\"$network\", cost=\"5000000\"})\n)",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"60\"})/1000000000000\n)",
           "hide": false,
           "interval": "",
-          "legendFormat": "5,000,000 (Standard TX)",
+          "legendFormat": "1m Target",
+          "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"300\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "5m Target",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"900\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "15m Target",
+          "range": true,
+          "refId": "C"
         }
       ],
-      "title": "Mempool Entrance Fee (Fee per Cost)",
+      "title": "Fee Estimate - Transfer NFT",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Shows the current fee estimate for an average \"take offer\" transaction for the specified target block inclusion timeframes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "id": 52,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"60\"})/1000000000000\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "1m Target",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"300\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "5m Target",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"900\"})/1000000000000\n)",
+          "hide": false,
+          "legendFormat": "15m Target",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Fee Estimate - Take Offer",
       "type": "timeseries"
     }
   ],
@@ -960,6 +1337,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }
