@@ -101,7 +101,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -165,7 +165,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -229,7 +229,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -292,7 +292,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -356,7 +356,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -419,7 +419,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -588,7 +588,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
+      "description": "Difficulty and sub slot iterations are constants that adjust periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nThe sub-slot iterations are adjusted such that each slot lasts around 600 seconds. The difficulty is adjusted such that every challenge gets 32 blocks on average with fewer iterations than slot_iterations.\n\nDocs: https://docs.chia.net/epoch-and-difficulty/",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -597,7 +597,7 @@
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Difficulty",
             "axisPlacement": "auto",
             "barAlignment": 1,
             "drawStyle": "line",
@@ -639,7 +639,28 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sub Slot Iters"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Sub-Slot Iterations"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -666,15 +687,28 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n  topk(1, \n    chia_blockchain_difficulty{network=\"$network\"} or \n    ( chia_full_node_difficulty{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) ) !=0\n  )\n)",
           "instant": false,
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n    topk(1, chia_full_node_sub_slot_iters{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n)",
+          "hide": false,
+          "legendFormat": "Sub Slot Iters",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "Difficulty",
+      "title": "Difficulty / Sub-Slot Iterations",
       "type": "timeseries"
     },
     {
@@ -1069,7 +1103,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -1098,7 +1132,7 @@
       "type": "bargauge"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
@@ -1146,6 +1180,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 25,
+  "version": 26,
   "weekStart": ""
 }
