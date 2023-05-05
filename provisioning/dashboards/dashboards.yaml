@@ -10,12 +10,3 @@ providers:
   updateIntervalSeconds: 10
   options:
     path: /var/lib/grafana/dashboards/blockchain
-- name: 'General'
-  orgId: 2
-  folder: 'General'
-  type: file
-  disableDeletion: true
-  editable: false
-  updateIntervalSeconds: 10
-  options:
-    path: /var/lib/grafana/dashboards/general
