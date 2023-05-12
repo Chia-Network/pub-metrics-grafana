@@ -19,7 +19,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -529,7 +528,7 @@
           "table": "users"
         }
       ],
-      "title": "Repos with Commit Activity (Date Range)",
+      "title": "Repo Activity (Latest commit in date range)",
       "type": "stat"
     },
     {
@@ -688,7 +687,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT COUNT(*) AS row_count\nFROM ecosystem_activity.users\nWHERE last_commit BETWEEN $__timeFrom() AND $__timeTo()",
+          "rawSql": "SELECT COUNT(*) AS row_count\nFROM ecosystem_activity.users\nWHERE first_commit BETWEEN $__timeFrom() AND $__timeTo()",
           "refId": "A",
           "sql": {
             "columns": [
@@ -716,11 +715,11 @@
           "table": "users"
         }
       ],
-      "title": "Developers with Commit Activity (Date Range)",
+      "title": "Developer Activity (First commit in date range)",
       "type": "stat"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [
@@ -734,7 +733,7 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "Ecosystem Activity",
   "uid": "bede53ff-3d90-4c35-bad0-3154f121ac2b",
   "version": 1,
