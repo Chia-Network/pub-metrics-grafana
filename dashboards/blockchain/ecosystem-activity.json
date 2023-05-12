@@ -19,6 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -541,7 +542,7 @@
       },
       "id": 2,
       "panels": [],
-      "title": "Users",
+      "title": "Developers",
       "type": "row"
     },
     {
@@ -549,7 +550,7 @@
         "type": "mysql",
         "uid": "P00A25F4DA48796D5"
       },
-      "description": "Shows number of unique users that have made a commit to a Chia ecosystem repository in total history.",
+      "description": "Shows number of unique developers that have made a commit to a Chia ecosystem repository in total history.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -628,7 +629,7 @@
           "table": "users"
         }
       ],
-      "title": "Users with Commit Activity (Total)",
+      "title": "Developers with Commit Activity (Total)",
       "type": "stat"
     },
     {
@@ -636,7 +637,7 @@
         "type": "mysql",
         "uid": "P00A25F4DA48796D5"
       },
-      "description": "Shows number of unique users that have made a commit within the given dashboard time range.",
+      "description": "Shows number of unique developers that have made a commit within the given dashboard time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -715,7 +716,7 @@
           "table": "users"
         }
       ],
-      "title": "Users with Commit Activity (Date Range)",
+      "title": "Developers with Commit Activity (Date Range)",
       "type": "stat"
     }
   ],
