@@ -19,6 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -636,7 +637,7 @@
         "type": "mysql",
         "uid": "P00A25F4DA48796D5"
       },
-      "description": "Shows number of unique developers that have made a commit within the given dashboard time range.",
+      "description": "Shows number of unique developers that have made their first commit to a Chia ecosystem repo within the given dashboard time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -717,9 +718,96 @@
       ],
       "title": "Developer Activity (First commit in date range)",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "P00A25F4DA48796D5"
+      },
+      "description": "Shows number of unique developers that have made any commits within the given dashboard time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 29
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "",
+      "targets": [
+        {
+          "dataset": "ecosystem_activity",
+          "datasource": {
+            "type": "mysql",
+            "uid": "P00A25F4DA48796D5"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS row_count\nFROM ecosystem_activity.users\nWHERE last_commit BETWEEN $__timeFrom() AND $__timeTo()",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "COUNT",
+                "parameters": [
+                  {
+                    "name": "*",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "users"
+        }
+      ],
+      "title": "Developer Activity (Latest commit in date range)",
+      "type": "stat"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [
