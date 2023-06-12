@@ -82,7 +82,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -178,7 +178,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
           "legendFormat": "Nakamoto Coefficient (>=51%)",
           "range": true,
           "refId": "A"
@@ -189,7 +189,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
           "hide": false,
           "legendFormat": "Nakamoto Coefficient (>=50%)",
           "range": true,
@@ -253,7 +253,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
