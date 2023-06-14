@@ -76,7 +76,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Total - 5 Days",
@@ -286,7 +286,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Nodes with Additional Capacity",
@@ -346,7 +346,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv4_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv4_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv4 Nodes",
@@ -406,7 +406,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv6 Nodes",
@@ -738,7 +738,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Total Nodes",
           "refId": "A"
@@ -823,7 +823,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Nodes with Additional Capacity",
           "refId": "A"
@@ -908,7 +908,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "IPv6 Nodes",
           "refId": "A"
