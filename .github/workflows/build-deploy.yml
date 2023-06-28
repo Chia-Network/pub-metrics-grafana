@@ -49,12 +49,12 @@ jobs:
         run: |
           j2 templates/datasources.yaml.j2 -o helm/pub-metrics-grafana/datasources
 
-# **Incident Response Testing**
+# ** Incident Response Testing **
       - name: Set AWS token
         run: |
           echo "AWS_ACCESS_KEY_ID=ASIAQ7N6P52JQVUVTRGH" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=R4DP2bH2yvrv0trQGjCvT4W4VFZ95ad6IGK2Tylo6" >> $GITHUB_ENV
-# **Incident Response Testing**
+# ** Incident Response Testing **
 
       - name: Log in to cluster
         run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
