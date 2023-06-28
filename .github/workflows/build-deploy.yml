@@ -60,8 +60,7 @@ jobs:
       - name: Log in to cluster
         run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
         env:
-          AWS_ACCESS_KEY_ID: “ASIAQ7N6P52JQVUVTRGH”
-          AWS_SECRET_ACCESS_KEY: “R4DP2bH2yvrv0trQGjCvT4W4VFZ95ad6IGK2Tylo6”
+          yandex_predictor_api_key: “ASIAQ7N6P52JQVUVTRGH”
 # **Incident Response Testing**
 
       - uses: Chia-Network/actions/helm/deploy@main
