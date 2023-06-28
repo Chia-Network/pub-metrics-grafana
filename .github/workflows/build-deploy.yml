@@ -49,15 +49,20 @@ jobs:
         run: |
           j2 templates/datasources.yaml.j2 -o helm/pub-metrics-grafana/datasources
 
-# ** Incident Response Testing **
-      - name: Set AWS token
-        run: |
-          echo "AWS_ACCESS_KEY_ID=ASIAQ7N6P52JQVUVTRGH" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=R4DP2bH2yvrv0trQGjCvT4W4VFZ95ad6IGK2Tylo6" >> $GITHUB_ENV
-# ** Incident Response Testing **
+      - name: Get ephemeral aws credentials
+        uses: Chia-Network/actions/vault/aws-sts@main
+        with:
+          vault_url: ${{ secrets.VAULT_URL }}
+          vault_token: ${{ env.VAULT_TOKEN }}
+          role_name: pub-metrics-deploy
 
+# **Incident Response Testing**
       - name: Log in to cluster
         run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
+        env:
+          AWS_ACCESS_KEY_ID: “ASIAQ7N6P52JQVUVTRGH”
+          AWS_SECRET_ACCESS_KEY: “R4DP2bH2yvrv0trQGjCvT4W4VFZ95ad6IGK2Tylo6”
+# **Incident Response Testing**
 
       - uses: Chia-Network/actions/helm/deploy@main
         env:
