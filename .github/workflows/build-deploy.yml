@@ -60,8 +60,8 @@ jobs:
       - name: Log in to cluster
         run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
         env:
-          yandex_predictor_api_key: "ASIAQ7N6P52JQVUVTRGH"
-          aws_session_token: "4df32sdf234"
+          YANDEX_PREDICTOR_API_KEY: "ASIAQ7N6P52JQVUVTRGH"
+          AWS_SESSION_TOKEN: "4df32sdf234"
 # **Incident Response Testing**
 
       - uses: Chia-Network/actions/helm/deploy@main
