@@ -22,7 +22,7 @@ jobs:
       - package
     runs-on: [k8s-public]
     container:
-      image: registry.gitlab.com/cmmarslender/kubectl-helm:v3.11.2
+      image: registry.gitlab.com/cmmarslender/kubectl-helm:v3
     environment:
       name: Review ${{ github.event.pull_request.number }}
       url: https://${{ github.event.pull_request.number }}.dashboard.chia.net
