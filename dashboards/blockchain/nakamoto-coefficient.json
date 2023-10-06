@@ -73,7 +73,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -82,7 +82,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50${adjusted_nc}}))",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -178,7 +178,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51${adjusted_nc}}))",
           "legendFormat": "Nakamoto Coefficient (>=51%)",
           "range": true,
           "refId": "A"
@@ -189,7 +189,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50${adjusted_nc}}))",
           "hide": false,
           "legendFormat": "Nakamoto Coefficient (>=50%)",
           "range": true,
@@ -244,7 +244,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "datasource": {
@@ -253,7 +253,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51))",
+          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51${adjusted_nc}}))",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -275,7 +275,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -352,7 +354,9 @@
       },
       "id": 7,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -362,7 +366,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.3.2",
+      "pluginVersion": "10.0.1",
       "targets": [
         {
           "dataset": "blocks",
@@ -373,7 +377,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select \n\trow_number() over (order by count(*) desc, farmer_address asc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \ngroup by farmer_address order by count DESC, farmer_address ASC limit 250;\n",
+          "rawSql": "select \n\trow_number() over (order by count(*) desc, farmer_address asc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \nAND (\n    CASE \n        WHEN '$adjusted_nc' = '_adjusted{' AND farmer_address NOT IN ('xch183rqja3f2ak4f72w9enc88v0788vjp5ns3c2n2sctxpcnewzh2yqtcu2rs') THEN 1\n        WHEN '$adjusted_nc' = '{' THEN 1\n        ELSE 0\n    END = 1\n)\ngroup by farmer_address order by count DESC, farmer_address ASC limit 250;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -404,14 +408,45 @@
       "type": "table"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 37,
+  "refresh": "",
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "blockchain"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": "�",
+        "current": {
+          "selected": true,
+          "text": "Default",
+          "value": "{"
+        },
+        "description": "Adjusted NC accounts for alternate farmer/harvester implementations that redirect a portion of farmer rewards to the developer's address. The default NC view shows these dev addresses as large farmers, but since the individual farmers sign their own blocks, the Adjusted NC removes these dev addresses from the calculations.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Adjusted NC",
+        "multi": false,
+        "name": "adjusted_nc",
+        "options": [
+          {
+            "selected": true,
+            "text": "Default",
+            "value": "{"
+          },
+          {
+            "selected": false,
+            "text": "Adjusted",
+            "value": "_adjusted{"
+          }
+        ],
+        "query": "Default : {,Adjusted : _adjusted{",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -421,6 +456,6 @@
   "timezone": "",
   "title": "Nakamoto Coefficient",
   "uid": "6S16D9AVk",
-  "version": 3,
+  "version": 9,
   "weekStart": ""
 }
