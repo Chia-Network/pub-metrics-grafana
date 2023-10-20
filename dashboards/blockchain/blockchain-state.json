@@ -101,7 +101,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -165,7 +165,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -229,7 +229,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -292,7 +292,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -308,69 +308,6 @@
         }
       ],
       "title": "Height Delta",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PB06BBC9CA81C548D"
-      },
-      "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/docs/03consensus/epochs/",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "value"
-      },
-      "pluginVersion": "10.1.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
-          "interval": "",
-          "legendFormat": "Difficulty",
-          "refId": "A"
-        }
-      ],
-      "title": "Difficulty",
       "type": "stat"
     },
     {
@@ -400,7 +337,7 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 20,
+        "x": 16,
         "y": 1
       },
       "id": 25,
@@ -419,7 +356,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -437,6 +374,199 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/epoch-and-difficulty/",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "refId": "A"
+        }
+      ],
+      "title": "Difficulty",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "A constant that adjusts periodically to ensure signage points are created at the desired rate\n\nDocs: https://docs.chia.net/epoch-and-difficulty/",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "id": 43,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)",
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Sub Slot Iters",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Estimated IPS for the network's quickest timelord, derived from the 'sub slot iters' value. On mainnet, this adjusts every 24 hours and every 4 hours on testnet. Expect this value to trail the actual fastest timelord's IPS by a minimum of one epoch.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "id": 44,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)/600",
+          "interval": "",
+          "legendFormat": "Difficulty",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "IPS Estimate (Last Epoch)",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
@@ -446,7 +576,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 7
       },
       "id": 10,
       "panels": [],
@@ -526,7 +656,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 5
+        "y": 8
       },
       "id": 6,
       "options": {
@@ -668,7 +798,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 5
+        "y": 8
       },
       "id": 8,
       "options": {
@@ -804,7 +934,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 5
+        "y": 8
       },
       "id": 4,
       "options": {
@@ -924,7 +1054,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 13
+        "y": 16
       },
       "id": 2,
       "options": {
@@ -1030,7 +1160,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 13
+        "y": 16
       },
       "id": 42,
       "options": {
@@ -1093,7 +1223,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 13
+        "y": 16
       },
       "id": 41,
       "options": {
@@ -1111,7 +1241,7 @@
         "showUnfilled": true,
         "valueMode": "color"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -1188,6 +1318,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 30,
+  "version": 31,
   "weekStart": ""
 }
