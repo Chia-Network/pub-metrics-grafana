@@ -506,7 +506,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "A lagging indicator of the estimated IPS of the fastest timelord on the network",
+      "description": "Estimated IPS for the network's quickest timelord, derived from the 'sub slot iters' value. On mainnet, this adjusts every 24 hours and every 4 hours on testnet. Expect this value to trail the actual fastest timelord's IPS by a minimum of one epoch.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -563,7 +563,7 @@
           "refId": "A"
         }
       ],
-      "title": "Estimated IPS",
+      "title": "IPS Estimate (Last Epoch)",
       "type": "stat"
     },
     {
