@@ -59,7 +59,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "How many individual spendbundles are currently in the mempool\n\nSpendbundle Docs: https://chialisp.com/docs/coin_lifecycle#spend-bundles",
+      "description": "How many individual spendbundles are currently in the mempool\n\nSpendbundle Docs: https://docs.chia.net/spend-bundles/",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -153,7 +153,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "This shows the current cost of the mempool (how full the mempool is). Once the mempool is full, a fee is required to kick other lower fee transactions out to get your transaction included in the mempool.\n\nOnce a transaction is in the mempool, it will be included in blocks as there is space. Typically the highest \"fee per cost\" are included in blocks first.\n\nCost Info: https://chialisp.com/docs/clvm/lang_reference#costs",
+      "description": "This shows the current cost of the mempool (how full the mempool is). Once the mempool is full, a fee is required to kick other lower fee transactions out to get your transaction included in the mempool.\n\nOnce a transaction is in the mempool, it will be included in blocks as there is space. Typically the highest \"fee per cost\" are included in blocks first.\n\nCost Info: https://chialisp.com/costs/\nMempool Info: https://docs.chia.net/mempool/",
       "fieldConfig": {
         "defaults": {
           "color": {
