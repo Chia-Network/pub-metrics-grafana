@@ -2,6 +2,7 @@ apiVersion: 1
 
 providers:
 - name: 'Blockchain'
+  folderUid: d2b618b0-2e31-4a72-b932-84ecfbb5b6fa
   orgId: 1
   folder: 'Blockchain'
   type: file
