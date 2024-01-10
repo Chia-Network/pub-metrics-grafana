@@ -67,6 +67,7 @@
       },
       "id": 6,
       "options": {
+        "folderUID": "d2b618b0-2e31-4a72-b932-84ecfbb5b6fa",
         "includeVars": false,
         "keepTime": false,
         "maxItems": 10,
@@ -75,11 +76,9 @@
         "showRecentlyViewed": false,
         "showSearch": true,
         "showStarred": false,
-        "tags": [
-          "blockchain"
-        ]
+        "tags": []
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "datasource": {
@@ -94,8 +93,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
@@ -107,7 +105,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "Home",
-  "uid": "1UwOSUW7k",
   "version": 1,
   "weekStart": ""
 }

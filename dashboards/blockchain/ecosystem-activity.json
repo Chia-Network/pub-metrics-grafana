@@ -810,9 +810,7 @@
   "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [
-    "blockchain"
-  ],
+  "tags": [],
   "templating": {
     "list": []
   },
