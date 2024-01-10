@@ -17,6 +17,8 @@ concurrency:
 jobs:
   package:
     uses: Chia-Network/actions/.github/workflows/docker-build.yaml@main
+    with:
+      alternate-latest-mode: true
 
   deploy:
     needs:
