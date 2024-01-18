@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 9,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -66,6 +66,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -80,6 +81,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -160,6 +162,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -173,6 +176,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -306,6 +310,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -320,6 +325,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -400,6 +406,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -415,6 +422,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -564,6 +572,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -577,6 +586,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -683,6 +693,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -696,6 +707,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -832,6 +844,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -845,6 +858,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -949,6 +963,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -962,6 +977,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1059,13 +1075,14 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "Shows the current fee estimate for an average \"transfer nft\" transaction for the specified target block inclusion timeframes.",
+      "description": "This shows the fee per cost that was actually paid for transactions that have been included in blocks.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1079,6 +1096,141 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mojos"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "id": 53,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, chia_full_node_block_fees{network=\"$network\"}/chia_full_node_block_cost{network=\"$network\"})\n)",
+          "interval": "",
+          "legendFormat": "Instant",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1h])\n)",
+          "hide": false,
+          "legendFormat": "1h Trailing",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1d])\n)",
+          "hide": false,
+          "legendFormat": "1d Trailing",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[7d])\n)",
+          "hide": false,
+          "legendFormat": "7d Trailing",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Block FPC",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Shows the current fee estimate for an average \"transfer nft\" transaction for the specified target block inclusion timeframes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1183,6 +1335,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1196,6 +1349,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1291,8 +1445,7 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -1335,6 +1488,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 20,
+  "version": 1,
   "weekStart": ""
 }
