@@ -645,10 +645,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\"} or\n    chia_blockchain_hint_count{network=\"$network\"}\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\",pod!~\".+\"} or\n    chia_blockchain_hint_count{network=\"$network\",pod!~\".+\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Hint Count",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1488,6 +1490,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
