@@ -71,3 +71,7 @@ jobs:
           app_name: grafana
           helm_chart: "./helm/pub-metrics-grafana"
           helm_values: "./helm/values.yaml"
+
+      - name: Trigger downstream workflows
+        run: |
+          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/trigger
