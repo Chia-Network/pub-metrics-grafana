@@ -5,6 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
 
 permissions:
   id-token: write
@@ -27,7 +29,7 @@ jobs:
     container:
       image: registry.gitlab.com/cmmarslender/kubectl-helm:v3
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Vault Login
         uses: Chia-Network/actions/vault/login@main
@@ -69,3 +71,7 @@ jobs:
           app_name: grafana
           helm_chart: "./helm/pub-metrics-grafana"
           helm_values: "./helm/values.yaml"
+
+      - name: Trigger downstream workflows
+        run: |
+          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/trigger
