@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 30,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -48,7 +48,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -71,9 +72,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -104,6 +107,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -117,6 +121,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -148,7 +153,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -219,7 +225,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -242,9 +249,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -293,7 +302,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -366,7 +376,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.0.1",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "dataset": "blocks",
@@ -409,8 +419,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -418,8 +427,8 @@
         "allValue": "�",
         "current": {
           "selected": true,
-          "text": "Default",
-          "value": "{"
+          "text": "Adjusted",
+          "value": "_adjusted{"
         },
         "description": "Adjusted NC accounts for alternate farmer/harvester implementations that redirect a portion of farmer rewards to the developer's address. The default NC view shows these dev addresses as large farmers, but since the individual farmers sign their own blocks, the Adjusted NC removes these dev addresses from the calculations.",
         "hide": 0,
@@ -429,12 +438,12 @@
         "name": "adjusted_nc",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "Default",
             "value": "{"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "Adjusted",
             "value": "_adjusted{"
           }
@@ -454,6 +463,6 @@
   "timezone": "",
   "title": "Nakamoto Coefficient",
   "uid": "6S16D9AVk",
-  "version": 9,
+  "version": 1,
   "weekStart": ""
 }
