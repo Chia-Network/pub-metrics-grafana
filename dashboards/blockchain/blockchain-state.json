@@ -1483,7 +1483,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": trueq,
+          "selected": true,
           "text": "mainnet",
           "value": "mainnet"
         },
