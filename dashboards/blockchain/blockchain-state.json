@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
+  "id": 8,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -75,13 +75,14 @@
               }
             ]
           },
-          "unit": "mbytes"
+          "unit": "mbytes",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
+        "w": 5,
         "x": 0,
         "y": 1
       },
@@ -98,10 +99,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -139,14 +142,15 @@
               }
             ]
           },
-          "unit": "mbytes"
+          "unit": "mbytes",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 6,
+        "w": 4,
+        "x": 5,
         "y": 1
       },
       "id": 19,
@@ -162,10 +166,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -203,14 +209,15 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 12,
+        "w": 5,
+        "x": 9,
         "y": 1
       },
       "id": 16,
@@ -226,10 +233,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -266,14 +275,15 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 18,
+        "w": 5,
+        "x": 14,
         "y": 1
       },
       "id": 20,
@@ -289,10 +299,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -315,6 +327,78 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
+      "description": "How many seconds between transaction blocks. Green if < 75, Yellow if 75-150, and Red if > 150",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 150
+              }
+            ]
+          },
+          "unit": "short",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 46,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"mainnet\"}[5m]))\n)",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Seconds per TX Block",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "A constant that adjusts periodically to ensure the chain moves at the desired rate of 4608 blocks per day.\n\nDocs: https://docs.chia.net/epoch-and-difficulty/",
       "fieldConfig": {
         "defaults": {
@@ -330,7 +414,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -353,10 +438,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -393,7 +480,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -416,10 +504,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -458,7 +548,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -481,10 +572,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -524,7 +617,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -547,10 +641,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -605,6 +701,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -649,7 +746,8 @@
               }
             ]
           },
-          "unit": "mbytes"
+          "unit": "mbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -727,6 +825,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "Difficulty",
@@ -770,7 +869,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -856,6 +956,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -899,7 +1000,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -991,6 +1093,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1034,7 +1137,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1110,6 +1214,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1153,7 +1258,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1207,8 +1313,10 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
+            "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 1,
             "drawStyle": "line",
@@ -1249,7 +1357,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1306,8 +1415,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1368,8 +1476,7 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -1412,6 +1519,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 32,
+  "version": 1,
   "weekStart": ""
 }
