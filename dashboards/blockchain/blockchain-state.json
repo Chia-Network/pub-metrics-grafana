@@ -384,7 +384,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"mainnet\"}[5m]))\n)",
+          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"$network\"}[5m]))\n)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1483,7 +1483,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
+          "selected": trueq,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1519,6 +1519,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
