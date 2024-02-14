@@ -237,6 +237,92 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "uid": "PB06BBC9CA81C548D",
+        "type": "prometheus"
+      },
+      "description": "Shows the fraction of peers discovered that run a version recent enough to support the 2.1 hard fork",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          },
+          "unitScale": true,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      "id": 30,
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": [
+            "percent"
+          ]
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "exemplar": false,
+          "expr": "sum(max by (version) (chia_crawler_peer_version{network=\"$network\", version =~ \"[2-9]\\\\.[1-9][0-9]*\\\\.[0-9]+.*\"}))",
+          "interval": "",
+          "legendFormat": "ready for hard fork",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        },
+        {
+          "datasource": {
+            "uid": "PB06BBC9CA81C548D",
+            "type": "prometheus"
+          },
+          "refId": "B",
+          "expr": "sum(max by (version) (chia_crawler_peer_version{network=\"$network\", version !~ \"[2-9]\\\\.[1-9][0-9]*\\\\.[0-9]+.*\"}))",
+          "range": true,
+          "instant": false,
+          "hide": false,
+          "editorMode": "code",
+          "legendFormat": "not ready"
+        }
+      ],
+      "title": "Hard fork readiness",
+      "type": "piechart"
+    },
+    {
       "description": "Nodes with available connections are nodes that allow inbound connections and have available space for more peers to connect",
       "fieldConfig": {
         "defaults": {
