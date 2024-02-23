@@ -1207,6 +1207,105 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
+      "description": "In a block, there are a number of proofs. Each proof starts out in the \"uncompact\" form, which is quick to generate in real time, but takes longer to validate when syncing. \n\nThis shows the ratio of blocks that have been compacted.\n\nWant to help generate compact proofs? Read about how to run a bluebox timelord here: https://docs.chia.net/timelord-architecture/",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      "id": 47,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
+          "interval": "",
+          "legendFormat": "Compact block ratio",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Compact Blocks ratio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
       "description": "Shows number of signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1. This is an indication of timelord performance.\n\nRead more about signage points and the 9.375 second target here: https://docs.chia.net/docs/03consensus/signage_points_and_infusion_points/",
       "fieldConfig": {
         "defaults": {
@@ -1267,7 +1366,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 16
+        "y": 24
       },
       "id": 42,
       "options": {
