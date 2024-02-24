@@ -104,7 +104,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -171,7 +171,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -238,7 +238,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -304,7 +304,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -376,7 +376,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -443,7 +443,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -509,7 +509,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -577,7 +577,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -646,7 +646,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -1259,7 +1259,7 @@
               }
             ]
           },
-          "unit": "percent",
+          "unit": "percentunit",
           "unitScale": true
         },
         "overrides": []
@@ -1299,105 +1299,6 @@
         }
       ],
       "title": "Compact Blocks ratio",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PB06BBC9CA81C548D"
-      },
-      "description": "Shows number of signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1. This is an indication of timelord performance.\n\nRead more about signage points and the 9.375 second target here: https://docs.chia.net/docs/03consensus/signage_points_and_infusion_points/",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 24
-      },
-      "id": 42,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max(\n  rate(\n    chia_full_node_total_signage_points{network=\"$network\",namespace!=\"chia-blockchain\"}[5m]\n  ) * 9.375\n)",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "SPs/9.375s",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Signage Points per 9.375s (Target 1)",
       "type": "timeseries"
     },
     {
@@ -1514,11 +1415,13 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1531,8 +1434,10 @@
       "id": 41,
       "options": {
         "displayMode": "gradient",
+        "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
+        "namePlacement": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1542,9 +1447,10 @@
           "values": false
         },
         "showUnfilled": true,
+        "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "10.1.5",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -1571,6 +1477,105 @@
         }
       ],
       "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PB06BBC9CA81C548D"
+      },
+      "description": "Shows number of signage points per 9.375 seconds, averaged over the past 5 minutes. Target value is 1. This is an indication of timelord performance.\n\nRead more about signage points and the 9.375 second target here: https://docs.chia.net/docs/03consensus/signage_points_and_infusion_points/",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PB06BBC9CA81C548D"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(\n  rate(\n    chia_full_node_total_signage_points{network=\"$network\",namespace!=\"chia-blockchain\"}[5m]\n  ) * 9.375\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "SPs/9.375s",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Signage Points per 9.375s (Target 1)",
+      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -1582,7 +1587,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1618,6 +1623,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 4,
+  "version": 10,
   "weekStart": ""
 }
