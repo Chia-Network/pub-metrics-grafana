@@ -111,8 +111,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -204,8 +203,7 @@
               }
             ]
           },
-          "unit": "short",
-          "unitScale": true
+          "unit": "short"
         },
         "overrides": [
           {
@@ -371,8 +369,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -470,8 +467,7 @@
               }
             ]
           },
-          "unit": "percentunit",
-          "unitScale": true
+          "unit": "percentunit"
         },
         "overrides": [
           {
@@ -567,11 +563,13 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": ".5",
+          "expr": ".6",
           "hide": false,
           "interval": "",
-          "legendFormat": "Current Block Cap",
+          "legendFormat": "60% Block Limit",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -634,8 +632,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -759,8 +756,7 @@
               }
             ]
           },
-          "unit": "XCH",
-          "unitScale": true
+          "unit": "XCH"
         },
         "overrides": [
           {
@@ -907,8 +903,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1027,8 +1022,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1151,8 +1145,7 @@
               }
             ]
           },
-          "unit": "mojos",
-          "unitScale": true
+          "unit": "mojos"
         },
         "overrides": []
       },
@@ -1282,8 +1275,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1402,8 +1394,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1515,6 +1506,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
