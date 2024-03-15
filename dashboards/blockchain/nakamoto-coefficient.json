@@ -48,8 +48,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -76,7 +75,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -153,8 +152,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -225,8 +223,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -253,7 +250,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -302,8 +299,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -376,7 +372,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "dataset": "blocks",
@@ -387,7 +383,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select \n\trow_number() over (order by count(*) desc, farmer_address asc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \nAND (\n    CASE \n        WHEN '$adjusted_nc' = '_adjusted{' AND farmer_address NOT IN ('xch183rqja3f2ak4f72w9enc88v0788vjp5ns3c2n2sctxpcnewzh2yqtcu2rs') THEN 1\n        WHEN '$adjusted_nc' = '{' THEN 1\n        ELSE 0\n    END = 1\n)\ngroup by farmer_address order by count DESC, farmer_address ASC limit 250;\n",
+          "rawSql": "select \n\trow_number() over (order by count(*) desc, farmer_address asc) as number,\n\tfarmer_address as \"Farmer Address\", \n\tcount(*) as Count, \n\tcount(*)/322.56 as Percent,\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) as \"Cumulative Count\",\n\tsum(count(*)) over (order by count(*) desc, farmer_address asc) / 322.56 as \"Cumulative Percent\"\nfrom blocks \nwhere height >= ((select height from blocks order by height desc limit 1)-32256) \nAND (\n    CASE \n        WHEN '$adjusted_nc' = '_adjusted{' AND farmer_address NOT IN ('xch183rqja3f2ak4f72w9enc88v0788vjp5ns3c2n2sctxpcnewzh2yqtcu2rs', 'xch1w6cjx6tygnlzted2ykacw2hqwxffkdt595r05rdxqpudq90gjhrs76ql54', 'xch178wppppm8pqp9tkalcurclln2q54snvs3estx5fmfhp936pzdajszh83t9') THEN 1\n        WHEN '$adjusted_nc' = '{' THEN 1\n        ELSE 0\n    END = 1\n)\ngroup by farmer_address order by count DESC, farmer_address ASC limit 250;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -463,6 +459,6 @@
   "timezone": "",
   "title": "Nakamoto Coefficient",
   "uid": "6S16D9AVk",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
