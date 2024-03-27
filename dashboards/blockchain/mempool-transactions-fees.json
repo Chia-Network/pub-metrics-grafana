@@ -140,10 +140,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    (\n      chia_full_node_mempool_size{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n    ) or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    (\n      chia_full_node_mempool_size{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n    ) or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Spends",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -248,11 +250,13 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) !=0",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) !=0",
           "hide": false,
           "interval": "",
           "legendFormat": "Mempool Cost",
+          "range": true,
           "refId": "B"
         },
         {
@@ -262,7 +266,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  bottomk(1, chia_full_node_mempool_max_total_cost{network=\"$network\"})!=0\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  bottomk(1, chia_full_node_mempool_max_total_cost{network=\"$network\"})!=0\n)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -275,7 +279,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, chia_full_node_block_max_cost{network=\"$network\"}) * 0.6\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, chia_full_node_block_max_cost{network=\"$network\"}) * 0.6\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "60% Block Limit",
@@ -398,10 +402,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) / 5000000\n) * \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{network=\"$network\"}[5m]) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n  )\n) / 3",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) / 5000000\n) * \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{network=\"$network\"}[5m]) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n  )\n) / 3",
           "interval": "",
           "legendFormat": "5,000,000 Cost TX",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -514,7 +520,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
           "interval": "",
           "legendFormat": "Instant",
           "range": true,
@@ -526,7 +532,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1h])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
           "hide": false,
           "legendFormat": "1h Trailing",
           "range": true,
@@ -538,7 +544,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[1d])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
           "hide": false,
           "interval": "",
           "legendFormat": "1d Trailing",
@@ -551,7 +557,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    sum_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n)\n/\n(\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        count_over_time(chia_full_node_block_cost{network=\"$network\"}[7d])\n    )  \n    *\n    sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n        topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n    )\n)\n",
           "hide": false,
           "interval": "",
           "legendFormat": "7d Trailing",
@@ -663,7 +669,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\",pod!~\".+\"} or\n    chia_blockchain_hint_count{network=\"$network\",pod!~\".+\"}\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\",pod!~\".+\"} or\n    chia_blockchain_hint_count{network=\"$network\",pod!~\".+\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Hint Count",
           "range": true,
@@ -804,7 +810,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"})\n) / 1000000000000",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"})\n) / 1000000000000",
           "interval": "",
           "legendFormat": "Instant",
           "range": true,
@@ -816,7 +822,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/ 1000000000000",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/ 1000000000000",
           "hide": false,
           "legendFormat": "1h Trailing",
           "range": true,
@@ -828,7 +834,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/ 1000000000000",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/ 1000000000000",
           "hide": false,
           "legendFormat": "1d Trailing",
           "range": true,
@@ -840,7 +846,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/ 1000000000000",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  count_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/ 1000000000000",
           "hide": false,
           "legendFormat": "7d Trailing",
           "range": true,
@@ -934,7 +940,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"60\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"60\"})/1000000000000\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "1m Target",
@@ -947,7 +953,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"300\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"300\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "5m Target",
           "range": true,
@@ -959,7 +965,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"900\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-xch\", time=\"900\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "15m Target",
           "range": true,
@@ -1053,7 +1059,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"60\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"60\"})/1000000000000\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "1m Target",
@@ -1066,7 +1072,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"300\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"300\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "5m Target",
           "range": true,
@@ -1078,7 +1084,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"900\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"send-cat\", time=\"900\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "15m Target",
           "range": true,
@@ -1176,7 +1182,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, chia_full_node_block_fees{network=\"$network\"}/chia_full_node_block_cost{network=\"$network\"})\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, chia_full_node_block_fees{network=\"$network\"}/chia_full_node_block_cost{network=\"$network\"})\n)",
           "interval": "",
           "legendFormat": "Instant",
           "range": true,
@@ -1188,7 +1194,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1h])\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1h])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1h])\n)",
           "hide": false,
           "legendFormat": "1h Trailing",
           "range": true,
@@ -1200,7 +1206,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1d])\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[1d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[1d])\n)",
           "hide": false,
           "legendFormat": "1d Trailing",
           "range": true,
@@ -1212,7 +1218,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[7d])\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_fees{network=\"$network\",component!~\"bluebox\"}[7d])\n) \n/\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  sum_over_time(chia_full_node_block_cost{network=\"$network\",component!~\"bluebox\"}[7d])\n)",
           "hide": false,
           "legendFormat": "7d Trailing",
           "range": true,
@@ -1306,7 +1312,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"60\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"60\"})/1000000000000\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "1m Target",
@@ -1319,7 +1325,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"300\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"300\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "5m Target",
           "range": true,
@@ -1331,7 +1337,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"900\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"tx-nft\", time=\"900\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "15m Target",
           "range": true,
@@ -1425,7 +1431,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"60\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"60\"})/1000000000000\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "1m Target",
@@ -1438,7 +1444,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"300\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"300\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "5m Target",
           "range": true,
@@ -1450,7 +1456,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"900\"})/1000000000000\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_fee_estimate{network=\"$network\", type=\"take-offer\", time=\"900\"})/1000000000000\n)",
           "hide": false,
           "legendFormat": "15m Target",
           "range": true,
@@ -1471,8 +1477,8 @@
         "allValue": ".*",
         "current": {
           "selected": false,
-          "text": "mainnet",
-          "value": "mainnet"
+          "text": "testnet10",
+          "value": "testnet10"
         },
         "datasource": {
           "type": "prometheus",
@@ -1506,6 +1512,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 10,
+  "version": 13,
   "weekStart": ""
 }
