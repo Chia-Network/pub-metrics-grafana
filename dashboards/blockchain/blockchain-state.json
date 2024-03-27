@@ -75,8 +75,7 @@
               }
             ]
           },
-          "unit": "mbytes",
-          "unitScale": true
+          "unit": "mbytes"
         },
         "overrides": []
       },
@@ -104,17 +103,19 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        (chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)) !=0\n    )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        (chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)) !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Netspace",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -142,8 +143,7 @@
               }
             ]
           },
-          "unit": "mbytes",
-          "unitScale": true
+          "unit": "mbytes"
         },
         "overrides": []
       },
@@ -171,7 +171,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -209,8 +209,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -238,17 +237,19 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Height",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -275,8 +276,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -304,15 +304,16 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Height",
@@ -348,8 +349,7 @@
               }
             ]
           },
-          "unit": "short",
-          "unitScale": true
+          "unit": "short"
         },
         "overrides": []
       },
@@ -376,7 +376,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -384,7 +384,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"$network\"}[5m]))\n)",
+          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"$network\"}[5m]))\n)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -414,8 +414,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -443,17 +442,19 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -480,8 +481,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -509,7 +509,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -548,8 +548,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -577,7 +576,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -617,8 +616,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -646,17 +644,19 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "$__range_s/(\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
+          "expr": "$__range_s/(\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -746,8 +746,7 @@
               }
             ]
           },
-          "unit": "mbytes",
-          "unitScale": true
+          "unit": "mbytes"
         },
         "overrides": []
       },
@@ -869,8 +868,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1000,8 +998,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1058,10 +1055,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Height",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1069,8 +1068,9 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "((\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset 3600s or\n      chia_full_node_node_height{network=\"$network\"} offset 3600s\n    ) != 0\n  )\n)/(3600/18.75))",
+          "expr": "((\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset 3600s or\n      chia_full_node_node_height{network=\"$network\"} offset 3600s\n    ) != 0\n  )\n)/(3600/18.75))",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -1137,8 +1137,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": [
           {
@@ -1259,8 +1258,7 @@
               }
             ]
           },
-          "unit": "percentunit",
-          "unitScale": true
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -1357,8 +1355,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -1420,8 +1417,7 @@
               }
             ]
           },
-          "unit": "percentunit",
-          "unitScale": true
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -1450,7 +1446,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1534,8 +1530,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -1623,6 +1618,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 10,
+  "version": 21,
   "weekStart": ""
 }
