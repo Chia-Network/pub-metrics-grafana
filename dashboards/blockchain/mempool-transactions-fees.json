@@ -1477,8 +1477,8 @@
         "allValue": ".*",
         "current": {
           "selected": false,
-          "text": "testnet10",
-          "value": "testnet10"
+          "text": "mainnet",
+          "value": "mainnet"
         },
         "datasource": {
           "type": "prometheus",
