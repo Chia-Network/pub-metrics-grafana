@@ -103,7 +103,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -171,7 +171,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -238,7 +238,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -305,7 +305,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -377,7 +377,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -443,7 +443,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -510,7 +510,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -577,7 +577,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -645,7 +645,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -766,6 +766,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -778,7 +779,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -911,6 +912,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1048,6 +1050,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1172,6 +1175,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1280,6 +1284,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1377,6 +1382,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1449,7 +1455,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -1552,6 +1558,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1617,10 +1624,11 @@
     "from": "now-6h",
     "to": "now"
   },
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 24,
+  "version": 29,
   "weekStart": ""
 }
