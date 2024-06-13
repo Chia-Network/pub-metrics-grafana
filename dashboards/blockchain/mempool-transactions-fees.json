@@ -130,6 +130,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -142,7 +143,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    (\n      chia_full_node_mempool_size{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n    ) or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    (\n      chia_full_node_mempool_size{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n    ) or\n    chia_blockchain_mempool_size{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Spends",
           "range": true,
@@ -240,6 +241,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -252,7 +254,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) !=0",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_mempool_cost{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) !=0",
           "hide": false,
           "interval": "",
           "legendFormat": "Mempool Cost",
@@ -392,6 +394,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -404,7 +407,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) / 5000000\n) * \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{network=\"$network\"}[5m]) > 0 and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n  )\n) / 3",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"}) / 5000000\n) * \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  bottomk(1,  \n    rate(chia_full_node_node_height{network=\"$network\"}[5m]) > 0 and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n  )\n) / 3",
           "interval": "",
           "legendFormat": "5,000,000 Cost TX",
           "range": true,
@@ -508,6 +511,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -520,7 +524,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_cost{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n) /\nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, chia_full_node_block_max_cost{network=\"$network\"})\n)",
           "interval": "",
           "legendFormat": "Instant",
           "range": true,
@@ -657,6 +661,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -798,6 +803,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -928,6 +934,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1047,6 +1054,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1170,6 +1178,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1300,6 +1309,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1419,6 +1429,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1508,10 +1519,11 @@
     "from": "now-6h",
     "to": "now"
   },
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 13,
+  "version": 22,
   "weekStart": ""
 }
