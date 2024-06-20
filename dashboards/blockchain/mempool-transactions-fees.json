@@ -281,10 +281,10 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, chia_full_node_block_max_cost{network=\"$network\"}) * 0.6\n)",
+          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, chia_full_node_block_max_cost{network=\"$network\"}) * 0.7\n)",
           "hide": false,
           "instant": false,
-          "legendFormat": "60% Block Limit",
+          "legendFormat": "70% Block Limit",
           "range": true,
           "refId": "C"
         }
@@ -575,10 +575,10 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": ".6",
+          "expr": ".7",
           "hide": false,
           "interval": "",
-          "legendFormat": "60% Block Limit",
+          "legendFormat": "70% Block Limit",
           "range": true,
           "refId": "B"
         }
