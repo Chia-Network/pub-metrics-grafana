@@ -76,7 +76,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -208,7 +208,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -294,7 +294,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -420,7 +420,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "dataset": "blocks",
@@ -503,7 +503,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -569,7 +569,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -635,7 +635,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -752,91 +752,6 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "Shows the fraction of peers discovered that run a version recent enough to support the 2.1 hard fork",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 5,
-        "x": 7,
-        "y": 13
-      },
-      "id": 30,
-      "options": {
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum(max by (version) (chia_crawler_peer_version{network=\"$network\", version =~ \"[2-9]\\\\.[1-9][0-9]*\\\\.[0-9]+.*\"}))",
-          "interval": "",
-          "legendFormat": "ready for hard fork",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "editorMode": "code",
-          "expr": "sum(max by (version) (chia_crawler_peer_version{network=\"$network\", version !~ \"[2-9]\\\\.[1-9][0-9]*\\\\.[0-9]+.*\"}))",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "not ready",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Hard fork readiness",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PB06BBC9CA81C548D"
-      },
       "description": "Shows the number of peers that have been discovered on each version.\n\nNote that the version AFTER the currently released version may also show up due to peers running dev versions of the software.",
       "fieldConfig": {
         "defaults": {
@@ -858,8 +773,8 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 12,
-        "x": 12,
+        "w": 17,
+        "x": 7,
         "y": 13
       },
       "id": 2,
@@ -887,7 +802,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.4.5",
       "targets": [
         {
           "datasource": {
@@ -1338,7 +1253,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1374,6 +1289,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
