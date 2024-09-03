@@ -30,6 +30,7 @@
   "panels": [
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -64,6 +65,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -76,15 +78,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Total - 5 Days",
@@ -208,7 +211,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -294,7 +297,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -420,7 +423,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "dataset": "blocks",
@@ -457,6 +460,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -491,6 +495,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -503,15 +508,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "Nodes with Additional Capacity",
@@ -523,6 +529,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -557,6 +564,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -569,15 +577,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv4_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_ipv4_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv4 Nodes",
@@ -589,6 +598,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -623,6 +633,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -635,15 +646,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "instant": true,
           "interval": "",
           "legendFormat": "IPv6 Nodes",
@@ -802,7 +814,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.4.5",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -845,9 +857,13 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -856,6 +872,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -877,7 +894,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -892,7 +910,7 @@
             "h": 24,
             "w": 24,
             "x": 0,
-            "y": 34
+            "y": 26
           },
           "id": 10,
           "options": {
@@ -903,7 +921,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "targets": [
@@ -961,6 +980,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -977,6 +997,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1044,10 +1065,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_total_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Total Nodes",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1056,6 +1079,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -1072,6 +1096,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1139,10 +1164,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_reliable_nodes{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "Nodes with Additional Capacity",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1151,6 +1178,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -1167,6 +1195,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1234,10 +1263,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max without(cluster, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, application, component, region) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
+          "expr": "max by (network) (\n    topk(1,\n        chia_crawler_ipv6_nodes_5_days{network=\"$network\"}\n    )\n)",
           "interval": "",
           "legendFormat": "IPv6 Nodes",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1289,6 +1320,6 @@
   "timezone": "",
   "title": "Peer Info",
   "uid": "em15uQ47k",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
