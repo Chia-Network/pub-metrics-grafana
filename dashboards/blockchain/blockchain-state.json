@@ -56,6 +56,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -91,6 +92,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -103,7 +105,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -112,7 +114,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        (chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)) !=0\n    )\n)",
+          "expr": "sum by (network) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        (chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)) !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Netspace",
           "range": true,
@@ -124,6 +126,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -159,6 +162,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -171,7 +175,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -180,7 +184,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"}) !=0))\n- \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        chia_full_node_netspace_mib{network=\"$network\"} offset $__range) != 0))",
+          "expr": "sum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"}) !=0))\n- \nsum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        chia_full_node_netspace_mib{network=\"$network\"} offset $__range) != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -192,6 +196,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -226,6 +231,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -238,7 +244,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -247,7 +253,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
+          "expr": "sum by (network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} !=0 or \n        chia_full_node_node_height{network=\"$network\"} !=0\n    )\n)",
           "interval": "",
           "legendFormat": "Height",
           "range": true,
@@ -259,6 +265,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -293,6 +300,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -305,7 +313,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -314,7 +322,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
+          "expr": "sum by (network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} or \n        chia_full_node_node_height{network=\"$network\"} != 0)) \n- \nsum by (network) (\n    topk(1, \n        chia_blockchain_height{network=\"$network\"} offset $__range or \n        chia_full_node_node_height{network=\"$network\"} offset $__range != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Height",
@@ -326,6 +334,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -366,6 +375,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -377,7 +387,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -385,7 +395,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "1/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"$network\"}[5m]))\n)",
+          "expr": "1/sum by (network) (\n    topk(1, rate(chia_full_node_transaction_blocks{network=\"$network\"}[5m]))\n)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -397,6 +407,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -431,6 +442,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -443,7 +455,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -452,7 +464,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
+          "expr": "sum by (network) (\n    topk(1,\n        chia_blockchain_difficulty{network=\"$network\"} or\n        chia_full_node_difficulty{network=\"$network\"} !=0 \n    )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
           "range": true,
@@ -464,6 +476,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -498,6 +511,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -510,7 +524,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -519,7 +533,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)",
+          "expr": "sum by (network) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
           "range": true,
@@ -531,6 +545,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -565,6 +580,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -577,7 +593,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -586,7 +602,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)/600",
+          "expr": "sum by (network) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)/600",
           "instant": true,
           "interval": "",
           "legendFormat": "Difficulty",
@@ -599,6 +615,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -633,6 +650,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -645,7 +663,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -654,7 +672,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "$__range_s/(\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
+          "expr": "$__range_s/(\n  sum by (network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum by (network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset $__range or\n      chia_full_node_node_height{network=\"$network\"} offset $__range\n    ) != 0\n  )\n)",
           "interval": "",
           "legendFormat": "Difficulty",
           "range": true,
@@ -692,6 +710,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -708,6 +727,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -779,7 +799,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, instance_name, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -818,6 +838,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -834,6 +855,7 @@
             "axisLabel": "Difficulty",
             "axisPlacement": "auto",
             "barAlignment": 1,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -925,7 +947,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_difficulty{network=\"$network\"} or \n    ( chia_full_node_difficulty{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) ) !=0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_difficulty{network=\"$network\"} or \n    ( chia_full_node_difficulty{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) ) !=0\n  )\n)",
           "instant": false,
           "interval": "",
           "legendFormat": "Difficulty",
@@ -937,7 +959,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, chia_full_node_sub_slot_iters{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n)",
+          "expr": "sum by (network) (\n    topk(1, chia_full_node_sub_slot_iters{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1))\n)",
           "hide": false,
           "legendFormat": "Sub Slot Iters",
           "range": true,
@@ -949,6 +971,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -965,6 +988,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1063,7 +1087,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Height",
           "range": true,
@@ -1076,7 +1100,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "((\n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region, exported_network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset 3600s or\n      chia_full_node_node_height{network=\"$network\"} offset 3600s\n    ) != 0\n  )\n)/(3600/18.75))",
+          "expr": "((\n  sum by (network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} or\n      chia_full_node_node_height{network=\"$network\"}\n    ) != 0\n  ) - \n  sum by (network) (\n    topk(1, \n      chia_blockchain_height{network=\"$network\"} offset 3600s or\n      chia_full_node_node_height{network=\"$network\"} offset 3600s\n    ) != 0\n  )\n)/(3600/18.75))",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -1089,6 +1113,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -1105,6 +1130,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1186,10 +1212,12 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Compact",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1197,11 +1225,13 @@
             "type": "prometheus",
             "uid": "PB06BBC9CA81C548D"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_uncompact_blocks{network=\"$network\"} or\n    chia_full_node_uncompact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "Uncompact",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -1210,6 +1240,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -1226,6 +1257,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1297,7 +1329,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)/sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_compact_blocks{network=\"$network\"} or\n    chia_full_node_compact_blocks{application=\"chia-blockchain\",component=\"node\",network=\"$network\"} !=0\n  )\n)/sum by (network) (\n  topk(1, \n    chia_blockchain_height{network=\"$network\"} or\n    chia_full_node_node_height{network=\"$network\"} !=0\n  )\n)",
           "interval": "",
           "legendFormat": "Compact block ratio",
           "range": true,
@@ -1309,6 +1341,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
@@ -1325,6 +1358,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 1,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1395,7 +1429,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without(cluster, application, component, pod, service, instance, namespace, job, instance_name, ref, container, group, endpoint, region) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)/600",
+          "expr": "sum by (network) (\n    topk(1,\n        chia_full_node_sub_slot_iters{network=\"$network\"} !=0 \n    )\n)/600",
           "instant": false,
           "interval": "1h",
           "legendFormat": "IPS Estimate",
@@ -1455,7 +1489,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
@@ -1501,6 +1535,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1592,7 +1627,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1624,11 +1659,10 @@
     "from": "now-6h",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 29,
+  "version": 30,
   "weekStart": ""
 }
