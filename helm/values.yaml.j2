@@ -66,3 +66,14 @@ networkPolicy:
       ports:
         - protocol: TCP
           port: 3306
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pub-metrics
+      ports:
+        - protocol: TCP
+          port: 8480
+        - protocol: TCP
+          port: 9090
+        - protocol: TCP
+          port: 9093
