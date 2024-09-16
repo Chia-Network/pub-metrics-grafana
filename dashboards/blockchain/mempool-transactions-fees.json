@@ -684,7 +684,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (network) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\",pod!~\".+\"} or\n    chia_blockchain_hint_count{network=\"$network\",pod!~\".+\"}\n  )\n)",
+          "expr": "sum by (network) (\n  topk(1, \n    chia_full_node_hint_count{network=\"$network\"} or\n    chia_blockchain_hint_count{network=\"$network\"}\n  )\n)",
           "interval": "",
           "legendFormat": "Hint Count",
           "range": true,
@@ -1545,6 +1545,6 @@
   "timezone": "",
   "title": "Mempool, Transactions, & Fees",
   "uid": "46EAA05E",
-  "version": 24,
+  "version": 25,
   "weekStart": ""
 }
