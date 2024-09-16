@@ -6,12 +6,9 @@ image:
 
 ingress:
   enabled: true
-  className: alb
+  className: nginx
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-    alb.ingress.kubernetes.io/target-type: "ip"
-    alb.ingress.kubernetes.io/scheme: "internet-facing"
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
   hosts:
     - host: {{ HOSTNAME }}
       paths:
@@ -20,6 +17,7 @@ ingress:
   tls:
     - hosts:
         - dashboard.chia.net
+        - dashboard-{{ REGION }}.chia.net
 
 env:
   - name: GF_SERVER_ROOT_URL
@@ -54,3 +52,26 @@ affinity:
                   - pub-metrics-grafana
           topologyKey: kubernetes.io/hostname
         weight: 100
+
+networkPolicy:
+  enabled: true
+  policyTypes:
+    - Egress
+  egressRules:
+    - to:
+        - ipBlock:
+            cidr: "{{ DB_HOST }}/32"
+      ports:
+        - protocol: TCP
+          port: 3306
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pub-metrics
+      ports:
+        - protocol: TCP
+          port: 8480
+        - protocol: TCP
+          port: 9090
+        - protocol: TCP
+          port: 9093
