@@ -37,6 +37,8 @@ jobs:
           - region: msp
           - region: ldn
           - region: sin
+    env:
+      REGION: ${{ matrix.colo.region }}
     steps:
       - uses: actions/checkout@v4
 

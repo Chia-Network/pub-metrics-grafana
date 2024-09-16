@@ -6,12 +6,9 @@ image:
 
 ingress:
   enabled: true
-  className: alb
+  className: nginx
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-    alb.ingress.kubernetes.io/target-type: "ip"
-    alb.ingress.kubernetes.io/scheme: "internet-facing"
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
   hosts:
     - host: {{ HOSTNAME }}
       paths:
@@ -20,6 +17,7 @@ ingress:
   tls:
     - hosts:
         - dashboard.chia.net
+        - dashboard-{{ REGION }}.chia.net
 
 env:
   - name: GF_SERVER_ROOT_URL
