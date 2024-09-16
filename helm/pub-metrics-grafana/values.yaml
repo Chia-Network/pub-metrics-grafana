@@ -85,3 +85,26 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+networkPolicy:
+  enabled: false
+  policyTypes: []
+  #    - Egress
+  #    - Ingress
+  egressRules: []
+  #    - to:
+  #        - namespaceSelector:
+  #            matchLabels:
+  #              name: chia-blockchain
+  #      ports:
+  #        - protocol: TCP
+  #          port: 8555
+  ingressRules: []
+#    - from:
+#        - namespaceSelector:
+#            matchLabels:
+#              kubernetes.io/metadata.name: chia-blockchain
+#      ports:
+#        - protocol: TCP
+#          port: 8555
+#          port: 8555
