@@ -8,7 +8,8 @@ ingress:
   enabled: true
   className: nginx
   annotations:
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    # Using cloudflare load balancers for routing, not normal DNS
+    external-dns.alpha.kubernetes.io/hostname: ""
   hosts:
     - host: {{ HOSTNAME }}
       paths:
