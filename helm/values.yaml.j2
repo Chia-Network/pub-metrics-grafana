@@ -14,14 +14,9 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-    - host: dashboard-{{ REGION }}.chia.net
-      paths:
-        - path: /
-          pathType: Prefix
   tls:
     - hosts:
-        - dashboard-dev.chia.net
-        - dashboard-{{ REGION }}.chia.net
+        - dashboard.chia.net
 
 env:
   - name: GF_SERVER_ROOT_URL
