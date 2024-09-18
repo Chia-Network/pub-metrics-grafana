@@ -1,0 +1,16 @@
+{{ if .Values.deployCert }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-star
+  labels:
+    {{- include "pub-metrics-grafana.labels" . | nindent 4 }}
+spec:
+  secretName: grafana-star-tls
+  dnsNames:
+    - "dashboard.chia.net"
+    - "*.dashboard.chia.net"
+  issuerRef:
+    name: letsencrypt-cf
+    kind: ClusterIssuer
+{{ end }}
