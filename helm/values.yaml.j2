@@ -4,20 +4,10 @@ image:
   pullPolicy: IfNotPresent
   tag: {{ IMAGE_TAG }}
 
+deployCert: {{ HOSTNAME == 'dashboard.chia.net' }}
+
 ingress:
-  enabled: true
-  className: nginx
-  annotations:
-    # Using cloudflare load balancers for routing, not normal DNS
-    external-dns.alpha.kubernetes.io/hostname: ""
-  hosts:
-    - host: {{ HOSTNAME }}
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - hosts:
-        - dashboard.chia.net
+  hostname: {{ HOSTNAME }}
 
 env:
   - name: GF_SERVER_ROOT_URL

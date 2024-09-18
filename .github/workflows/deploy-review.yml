@@ -20,7 +20,7 @@ jobs:
   deploy:
     needs:
       - package
-    runs-on: [k8s-public]
+    runs-on: k8s-public-msp
     container:
       image: registry.gitlab.com/cmmarslender/kubectl-helm:v3
     environment:
@@ -41,23 +41,23 @@ jobs:
           url: ${{ secrets.VAULT_URL }}
           token: ${{ env.VAULT_TOKEN }}
           secrets: |
-            secret/data/pub-metrics-eks/rds/rds-info db_host | BLOCK_METRICS_DB_HOST;
-            secret/data/pub-metrics-eks/rds/blocks-read-user username | BLOCK_METRICS_USER;
-            secret/data/pub-metrics-eks/rds/blocks-read-user password | BLOCK_METRICS_PASSWORD;
+            secret/data/msp/k8s/k8s-msp api_server_url | K8S_API_SERVER_URL;
+            secret/data/msp/mysql/db-info host | DB_HOST;
+            secret/data/msp/mysql/users/grafana-read-pub username | GRAFANA_PUB_READ_USERNAME;
+            secret/data/msp/mysql/users/grafana-read-pub password | GRAFANA_PUB_READ_PASSWORD;
 
       - name: Template grafana configs
         run: |
           j2 templates/datasources.yaml.j2 -o helm/pub-metrics-grafana/datasources
 
-      - name: Get ephemeral aws credentials
-        uses: Chia-Network/actions/vault/aws-sts@main
+      - name: Login to k8s cluster
+        uses: Chia-Network/actions/vault/k8s-login@main
         with:
           vault_url: ${{ secrets.VAULT_URL }}
           vault_token: ${{ env.VAULT_TOKEN }}
-          role_name: pub-metrics-deploy
-
-      - name: Log in to cluster
-        run: aws eks update-kubeconfig --name pub-metrics --region us-west-2
+          backend_name: k8s-msp
+          role_name: github-actions
+          cluster_url: ${{ env.K8S_API_SERVER_URL }}
 
       - uses: Chia-Network/actions/helm/deploy@main
         env:
@@ -66,7 +66,7 @@ jobs:
           IMAGE_TAG: "sha-${{ github.sha }}"
           REVIEW_SLUG: ${{ github.event.pull_request.number }}
         with:
-          namespace: grafana
+          namespace: grafana-pub
           app_name: "grafana-${{ env.REVIEW_SLUG }}"
           helm_chart: "./helm/pub-metrics-grafana"
           helm_values: "./helm/values.yaml"
