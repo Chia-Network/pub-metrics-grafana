@@ -46,4 +46,4 @@ jobs:
         env:
           REVIEW_SLUG: ${{ github.event.pull_request.number }}
         run: |
-          helm uninstall -n "grafana" "grafana-$REVIEW_SLUG"
+          helm uninstall -n "grafana-pub" "grafana-$REVIEW_SLUG"
