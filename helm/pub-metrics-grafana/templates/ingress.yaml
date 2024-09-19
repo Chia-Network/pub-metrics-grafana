@@ -20,10 +20,46 @@ spec:
     - host: {{ .Values.ingress.hostname | quote }}
       http:
         paths:
-          - pathType: Prefix
-            path: /
+          - path: /$
+            pathType: Exact
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: {{ $servicePort }}
+          - path: /dashboards
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: {{ $servicePort }}
+          - path: /d/.*
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: {{ $servicePort }}
+          - path: /playlists
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: {{ $servicePort }}
+          # Deny /api and /admin by sending them to a non-existent service or returning 404
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: dummy-service # Doesn't exist, returns 404
+                port:
+                  number: 80
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: dummy-service # Doesn't exist, returns 404
+                port:
+                  number: 80
