@@ -53,6 +53,7 @@ ingress:
   hostname: dashboard.chia.net
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
   servicePort: http
   tls:
     enabled: true
