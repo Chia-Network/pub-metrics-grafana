@@ -84,5 +84,8 @@ jobs:
           helm_values: "./helm/values.yaml"
 
       - name: Trigger downstream workflows
-        run: |
-          curl -s -XPOST -H "Authorization: Bearer ${{ env.JWT_TOKEN }}" ${{ secrets.GLUE_API_URL }}/api/v1/pub-metrics-grafana/trigger
+        uses: Chia-Network/actions/github/glue@main
+        with:
+          glue_url: ${{ secrets.GLUE_API_URL }}
+          glue_project: "pub-metrics-grafana"
+          glue_path: "trigger"
