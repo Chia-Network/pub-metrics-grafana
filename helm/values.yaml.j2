@@ -8,6 +8,12 @@ deployCert: {{ HOSTNAME == 'dashboard.chia.net' }}
 
 ingress:
   hostname: {{ HOSTNAME }}
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~ ^/(swagger|metrics|admin|datasources|connections/datasources) {
+        return 403;
+      }
 
 env:
   - name: GF_SERVER_ROOT_URL
