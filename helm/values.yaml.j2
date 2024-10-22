@@ -11,7 +11,7 @@ ingress:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      location ~ ^/(swagger|metrics|admin|datasources|connections/datasources) {
+      location ~ ^/(swagger|metrics|admin|datasources|connections/datasources|openapi) {
         return 403;
       }
 
