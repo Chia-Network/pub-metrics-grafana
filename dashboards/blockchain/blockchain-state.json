@@ -26,14 +26,9 @@
   "graphTooltip": 0,
   "id": 8,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PB06BBC9CA81C548D"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -42,15 +37,6 @@
       },
       "id": 27,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Summary",
       "type": "row"
     },
@@ -105,7 +91,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -175,7 +161,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -184,7 +170,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} or \n        chia_full_node_netspace_mib{network=\"$network\"}) !=0))\n- \nsum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        chia_full_node_netspace_mib{network=\"$network\"} offset $__range) != 0))",
+          "expr": "sum by (network) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} \n        or \n        (\n            chia_full_node_netspace_mib{network=\"$network\"} \n                and on (instance) (delta(chia_full_node_node_height[5m]) != 0) \n                and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n        ) \n        != 0\n    )\n)\n- \nsum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        (\n            chia_full_node_netspace_mib{network=\"$network\"}  offset $__range) \n            and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n        ) \n        != 0))",
           "instant": false,
           "interval": "",
           "legendFormat": "Netspace",
@@ -244,7 +230,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -313,7 +299,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -387,7 +373,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -455,7 +441,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -524,7 +510,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -593,7 +579,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -663,7 +649,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -684,10 +670,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PB06BBC9CA81C548D"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -696,15 +678,6 @@
       },
       "id": 10,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PB06BBC9CA81C548D"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Blockchain",
       "type": "row"
     },
@@ -791,6 +764,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -939,6 +913,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1079,6 +1054,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1206,6 +1182,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1321,6 +1298,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1421,6 +1399,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1473,6 +1452,12 @@
       "id": 41,
       "options": {
         "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
         "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
@@ -1489,7 +1474,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1598,6 +1583,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1618,16 +1604,15 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": "mainnet",
           "value": "mainnet"
         },
@@ -1637,10 +1622,8 @@
         },
         "definition": "query_result(count by (network)(count_over_time(chia_full_node_node_height[$__range])))",
         "description": "The network to filter results by",
-        "hide": 0,
         "includeAll": false,
         "label": "Network",
-        "multi": false,
         "name": "network",
         "options": [],
         "query": {
@@ -1649,7 +1632,6 @@
         },
         "refresh": 2,
         "regex": ".*network=\"(.*)\".*",
-        "skipUrlSync": false,
         "sort": 5,
         "type": "query"
       }
@@ -1663,6 +1645,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 30,
+  "version": 31,
   "weekStart": ""
 }
