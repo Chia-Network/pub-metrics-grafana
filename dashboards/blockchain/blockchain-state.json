@@ -170,10 +170,11 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (network) (\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} \n        or \n        (\n            chia_full_node_netspace_mib{network=\"$network\"} \n                and on (instance) (delta(chia_full_node_node_height[5m]) != 0) \n                and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n        ) \n        != 0\n    )\n)\n- \nsum by (network)((\n    topk(1, \n        chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or \n        (\n            chia_full_node_netspace_mib{network=\"$network\"}  offset $__range) \n            and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1)\n        ) \n        != 0))",
-          "instant": false,
+          "expr": "sum by (network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} or\n    chia_full_node_netspace_mib{network=\"$network\"} and on (instance) (delta(chia_full_node_node_height[5m]) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} == 1) != 0\n  )\n)\n- \nsum by (network) (\n  topk(1, \n    chia_blockchain_netspace_mib{network=\"$network\"} offset $__range or\n    chia_full_node_netspace_mib{network=\"$network\"} offset $__range and on (instance) (delta(chia_full_node_node_height[5m] offset $__range) != 0) and on (instance) (chia_full_node_node_synced{network=\"$network\"} offset $__range == 1) != 0\n  )\n)",
+          "instant": true,
           "interval": "",
           "legendFormat": "Netspace",
+          "range": false,
           "refId": "A"
         }
       ],
@@ -786,7 +787,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[7d])\n)",
+          "expr": "sum by (network) (topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[7d])\n))",
           "hide": false,
           "legendFormat": "7d Average",
           "range": true,
@@ -799,7 +800,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[30d])\n)",
+          "expr": "sum by (network) (topk(1, \n  avg_over_time(job:combined_topk_chia_full_node_netspace_mib_synced{network=\"$network\"}[30d])\n))",
           "hide": false,
           "interval": "",
           "legendFormat": "30d Average",
@@ -1645,6 +1646,6 @@
   "timezone": "",
   "title": "Blockchain State",
   "uid": "CL1X4UWnk",
-  "version": 31,
+  "version": 34,
   "weekStart": ""
 }
