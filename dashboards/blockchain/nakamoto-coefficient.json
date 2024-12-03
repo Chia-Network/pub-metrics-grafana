@@ -26,7 +26,6 @@
   "graphTooltip": 0,
   "id": 3,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -64,6 +63,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -75,7 +75,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
@@ -112,6 +112,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -175,6 +176,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
@@ -182,7 +184,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51${adjusted_nc}}))",
+          "expr": "sum by (network) (topk(1, chia_block_metrics_nakamoto_coefficient_gt51${adjusted_nc}}))",
           "legendFormat": "Nakamoto Coefficient (>=51%)",
           "range": true,
           "refId": "A"
@@ -193,7 +195,7 @@
             "uid": "PB06BBC9CA81C548D"
           },
           "editorMode": "code",
-          "expr": "sum without(cluster, application, container, endpoint, instance, job, namespace, pod, service, region) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50${adjusted_nc}}))",
+          "expr": "sum by (network) (topk(1, chia_block_metrics_nakamoto_coefficient_gt50${adjusted_nc}}))",
           "hide": false,
           "legendFormat": "Nakamoto Coefficient (>=50%)",
           "range": true,
@@ -239,6 +241,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -250,7 +253,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
@@ -372,7 +375,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "dataset": "blocks",
@@ -414,23 +417,21 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": "�",
         "current": {
-          "selected": true,
-          "text": "Adjusted",
+          "text": "_adjusted{",
           "value": "_adjusted{"
         },
         "description": "Adjusted NC accounts for alternate farmer/harvester implementations that redirect a portion of farmer rewards to the developer's address. The default NC view shows these dev addresses as large farmers, but since the individual farmers sign their own blocks, the Adjusted NC removes these dev addresses from the calculations.",
-        "hide": 0,
         "includeAll": false,
         "label": "Adjusted NC",
-        "multi": false,
         "name": "adjusted_nc",
         "options": [
           {
@@ -445,8 +446,6 @@
           }
         ],
         "query": "Default : {,Adjusted : _adjusted{",
-        "queryValue": "",
-        "skipUrlSync": false,
         "type": "custom"
       }
     ]
@@ -459,6 +458,6 @@
   "timezone": "",
   "title": "Nakamoto Coefficient",
   "uid": "6S16D9AVk",
-  "version": 4,
+  "version": 9,
   "weekStart": ""
 }
