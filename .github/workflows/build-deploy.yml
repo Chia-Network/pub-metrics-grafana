@@ -55,7 +55,6 @@ jobs:
           token: ${{ env.VAULT_TOKEN }}
           secrets: |
             secret/data/${{ matrix.colo.region }}/k8s/k8s-${{ matrix.colo.region }} api_server_url | K8S_API_SERVER_URL;
-            secret/data/${{ matrix.colo.region }}/mysql/db-info host | DB_HOST;
             secret/data/${{ matrix.colo.region }}/mysql/users/grafana-read-pub username | GRAFANA_PUB_READ_USERNAME;
             secret/data/${{ matrix.colo.region }}/mysql/users/grafana-read-pub password | GRAFANA_PUB_READ_PASSWORD;
 
