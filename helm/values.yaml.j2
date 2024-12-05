@@ -55,11 +55,14 @@ networkPolicy:
     - Egress
   egressRules:
     - to:
-        - ipBlock:
-            cidr: "{{ DB_HOST }}/32"
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: proxysql
       ports:
         - protocol: TCP
           port: 3306
+        - protocol: TCP
+          port: 6033
     - to:
         - namespaceSelector:
             matchLabels:
