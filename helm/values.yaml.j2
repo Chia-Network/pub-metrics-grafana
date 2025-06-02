@@ -1,7 +1,7 @@
 replicaCount: {{ REPLICAS }}
 
 image:
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: {{ IMAGE_TAG }}
 
 deployCert: {{ HOSTNAME == 'dashboard.chia.net' }}
