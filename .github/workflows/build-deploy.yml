@@ -76,7 +76,7 @@ jobs:
           REPLICAS: 3
           HOSTNAME: "dashboard.chia.net"
           IMAGE_TAG: "sha-${{ github.sha }}"
-          GITHUB_JOB: "${{ github.run_id }}-${{ github.run_attempt }}"
+          RUN_ID_ATTEMPT: "${{ github.run_id }}-${{ github.run_attempt }}"
         with:
           namespace: grafana-pub
           app_name: grafana

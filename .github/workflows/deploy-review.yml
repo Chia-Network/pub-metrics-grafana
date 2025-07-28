@@ -64,7 +64,7 @@ jobs:
           HOSTNAME: "${{ github.event.pull_request.number }}.dashboard.chia.net"
           IMAGE_TAG: "sha-${{ github.sha }}"
           REVIEW_SLUG: ${{ github.event.pull_request.number }}
-          GITHUB_JOB: "${{ github.run_id }}-${{ github.run_attempt }}"
+          RUN_ID_ATTEMPT: "${{ github.run_id }}-${{ github.run_attempt }}"
         with:
           namespace: grafana-pub
           app_name: "grafana-${{ env.REVIEW_SLUG }}"
