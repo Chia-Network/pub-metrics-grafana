@@ -6,6 +6,9 @@ image:
 
 deployCert: {{ HOSTNAME == 'dashboard.chia.net' }}
 
+podAnnotations:
+  github-job: {{ GITHUB_JOB }}
+
 ingress:
   hostname: {{ HOSTNAME }}
   annotations:

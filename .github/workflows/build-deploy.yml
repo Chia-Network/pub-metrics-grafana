@@ -76,6 +76,7 @@ jobs:
           REPLICAS: 3
           HOSTNAME: "dashboard.chia.net"
           IMAGE_TAG: "sha-${{ github.sha }}"
+          GITHUB_JOB: ${{ github.job }}
         with:
           namespace: grafana-pub
           app_name: grafana
