@@ -1,4 +1,4 @@
-FROM grafana/grafana:latest
+FROM grafana/grafana:12.1.1
 
 ENV GF_INSTALL_PLUGINS=grafana-worldmap-panel
 
