@@ -429,7 +429,7 @@
         "type": "prometheus",
         "uid": "PB06BBC9CA81C548D"
       },
-      "description": "How full each block is. Currently, there is a cap of 50%.",
+      "description": "How full each block is.",
       "fieldConfig": {
         "defaults": {
           "color": {
