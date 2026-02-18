@@ -17,9 +17,6 @@ ingress:
       location ~ ^/(swagger|metrics|admin|datasources|connections/datasources|openapi) {
         return 403;
       }
-      if ($uri ~ ^/api/(?!(search(/|$)|frontend-metrics(/|$)|plugins(/|$)|folders(/|$)|annotations(/|$)|ds/query(/|$)|dashboards/home(/|$)|datasources/uid/PB06BBC9CA81C548D/resources/api/v1/(query|label/network/values)(/|$)))) {
-        return 403;
-      }
 
 env:
   - name: GF_SERVER_ROOT_URL
