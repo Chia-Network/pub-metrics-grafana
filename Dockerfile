@@ -1,6 +1,4 @@
-FROM grafana/grafana:latest
-
-ENV GF_INSTALL_PLUGINS=grafana-worldmap-panel
+FROM grafana/grafana:13.0
 
 COPY ./provisioning/ /etc/grafana/provisioning
 COPY ./dashboards /var/lib/grafana/dashboards
