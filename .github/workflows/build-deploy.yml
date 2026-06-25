@@ -35,7 +35,7 @@ jobs:
         colo:
           - region: fmt
           - region: msp
-          - region: ldn
+          - region: zrh
           - region: sin
     env:
       REGION: ${{ matrix.colo.region }}
