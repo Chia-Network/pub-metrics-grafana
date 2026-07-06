@@ -58,10 +58,6 @@ jobs:
             secret/data/${{ matrix.colo.region }}/mysql/users/grafana-read-pub username | GRAFANA_PUB_READ_USERNAME;
             secret/data/${{ matrix.colo.region }}/mysql/users/grafana-read-pub password | GRAFANA_PUB_READ_PASSWORD;
 
-      - name: Template grafana configs
-        run: |
-          j2 templates/datasources.yaml.j2 -o helm/pub-metrics-grafana/datasources
-
       - name: Login to k8s cluster
         uses: Chia-Network/actions/vault/k8s-login@main
         with:
@@ -80,8 +76,17 @@ jobs:
         with:
           namespace: grafana-pub
           app_name: grafana
-          helm_chart: "./helm/pub-metrics-grafana"
+          helm_chart_repo: "https://chia-network.github.io/helm-charts"
+          helm_chart: "generic"
           helm_values: "./helm/values.yaml"
+
+      - name: Apply Contour HTTPProxy route policy
+        env:
+          HOSTNAME: "dashboard.chia.net"
+          SERVICE_NAME: "grafana-pub-metrics-grafana"
+        run: |
+          j2 helm/httpproxy.yaml.j2 -o helm/httpproxy.yaml
+          kubectl apply -n grafana-pub -f helm/httpproxy.yaml
 
       - name: Trigger downstream workflows
         uses: Chia-Network/actions/github/glue@main

@@ -47,3 +47,10 @@ jobs:
           REVIEW_SLUG: ${{ github.event.pull_request.number }}
         run: |
           helm uninstall -n "grafana-pub" "grafana-$REVIEW_SLUG"
+
+      - name: Delete Contour HTTPProxy
+        env:
+          REVIEW_SLUG: ${{ github.event.pull_request.number }}
+        run: |
+          kubectl delete httpproxy -n "grafana-pub" \
+            "grafana-$REVIEW_SLUG-pub-metrics-grafana" --ignore-not-found

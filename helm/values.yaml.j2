@@ -1,29 +1,77 @@
 replicaCount: {{ REPLICAS }}
 
+# Keep the app.kubernetes.io/name label as "pub-metrics-grafana" so the
+# podAntiAffinity selectors below continue to match this app's pods.
+nameOverride: pub-metrics-grafana
+
 image:
+  repository: ghcr.io/chia-network/pub-metrics-grafana
   pullPolicy: Always
   tag: {{ IMAGE_TAG }}
 
-deployCert: {{ HOSTNAME == 'dashboard.chia.net' }}
+deployment:
+  containerPort: 3000
+  containerPortName: http
+  environment:
+    GF_SERVER_ROOT_URL: "https://{{ HOSTNAME }}"
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+
+service:
+  enabled: true
 
 podAnnotations:
   github-job: {{ RUN_ID_ATTEMPT }}
 
+# Ingress is disabled: routing, TLS and DNS are handled by the Contour
+# HTTPProxy in helm/httpproxy.yaml.j2, which also enforces the public-route
+# 403 allow-list (an Ingress and an HTTPProxy cannot share the same fqdn).
 ingress:
-  hostname: {{ HOSTNAME }}
-  annotations:
-    ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      location ~ ^/(swagger|metrics|admin|datasources|connections/datasources|openapi) {
-        return 403;
-      }
-      if ($uri ~ ^/api/(?!(login/ping(/|$)|search(/|$)|frontend-metrics(/|$)|plugins(/|$)|folders(/|$)|annotations(/|$)|ds/query(/|$)|dashboards/home(/|$)|datasources/uid/PB06BBC9CA81C548D/resources/api/v1/(query|label/network/values)(/|$)))) {
-        return 403;
-      }
+  enabled: false
 
-env:
-  - name: GF_SERVER_ROOT_URL
-    value: "https://{{ HOSTNAME }}"
+# Grafana datasource provisioning. Rendered at deploy time by j2 using the
+# Vault-provided GRAFANA_PUB_READ_* environment variables. Mounted via subPath
+# at /etc/grafana/provisioning/datasources/datasources.yaml.
+secretFiles:
+  - mountPath: /etc/grafana/provisioning/datasources
+    filename: datasources.yaml
+    content: |
+      apiVersion: 1
+      datasources:
+        - name: trickster
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://trickster.prometheus.svc:8480
+          isDefault: true
+          version: 1
+          editable: false
+          uid: PB06BBC9CA81C548D
+          jsonData:
+            customQueryParameters: "max_source_resolution=0"
+        - name: prometheus-no-history
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://prometheus.prometheus.svc:9090
+          isDefault: false
+          version: 1
+          editable: false
+        - name: block-data
+          type: mysql
+          url: "proxysql-generic.proxysql:3306"
+          uid: P00A25F4DA48796D5
+          user: '{{ GRAFANA_PUB_READ_USERNAME }}'
+          jsonData:
+            database: blocks
+          secureJsonData:
+            password: '{{ GRAFANA_PUB_READ_PASSWORD }}'
 
 affinity:
   podAntiAffinity:

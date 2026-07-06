@@ -1,0 +1,111 @@
+# Contour HTTPProxy that reproduces the public-route allow-list previously
+# enforced by the ingress-nginx `configuration-snippet`. Contour ignores nginx
+# annotations, so the 403 rules are expressed as native routes here.
+#
+# Contour matches the longest path prefix, so the explicit allow-listed
+# `/api/*` prefixes take precedence over the `/api/` catch-all that returns 403.
+#
+# Templated with j2 at deploy time (HOSTNAME, SERVICE_NAME) and applied with
+# `kubectl apply`. The chart's own Ingress is disabled (ingress.enabled: false)
+# because an Ingress and an HTTPProxy cannot both own the same fqdn.
+#
+# TLS: a single wildcard+apex certificate is issued only by the production
+# deployment and stored in the shared `grafana-star-tls` secret. Review apps
+# (<pr>.dashboard.chia.net) reuse that secret rather than each requesting their
+# own Let's Encrypt cert, which would risk hitting rate limits.
+{% if HOSTNAME == 'dashboard.chia.net' %}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-star-tls
+spec:
+  secretName: grafana-star-tls
+  dnsNames:
+    - dashboard.chia.net
+    - '*.dashboard.chia.net'
+  issuerRef:
+    name: letsencrypt-cf
+    kind: ClusterIssuer
+---
+{% endif %}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: {{ SERVICE_NAME }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ HOSTNAME }}
+    external-dns.alpha.kubernetes.io/ttl: "120"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+spec:
+  virtualhost:
+    fqdn: {{ HOSTNAME }}
+    tls:
+      secretName: grafana-star-tls
+  routes:
+    # --- Allow-listed API routes (forwarded to Grafana) ---
+    # These prefixes are longer than the "/api/" catch-all below, so Contour
+    # matches them first and lets the request through.
+    - conditions:
+        - prefix: /api/login/ping
+      services: &grafana
+        - name: {{ SERVICE_NAME }}
+          port: 80
+    - conditions:
+        - prefix: /api/search
+      services: *grafana
+    - conditions:
+        - prefix: /api/frontend-metrics
+      services: *grafana
+    - conditions:
+        - prefix: /api/plugins
+      services: *grafana
+    - conditions:
+        - prefix: /api/folders
+      services: *grafana
+    - conditions:
+        - prefix: /api/annotations
+      services: *grafana
+    - conditions:
+        - prefix: /api/ds/query
+      services: *grafana
+    - conditions:
+        - prefix: /api/dashboards/home
+      services: *grafana
+    - conditions:
+        - prefix: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/query
+      services: *grafana
+    - conditions:
+        - prefix: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/label/network/values
+      services: *grafana
+
+    # --- Denied routes (return 403) ---
+    # Everything else under /api/ that is not allow-listed above.
+    - conditions:
+        - prefix: /api/
+      directResponsePolicy:
+        statusCode: 403
+    # Sensitive UI / operational endpoints.
+    - conditions:
+        - prefix: /swagger
+      directResponsePolicy: &deny
+        statusCode: 403
+    - conditions:
+        - prefix: /metrics
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /admin
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /connections/datasources
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /datasources
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /openapi
+      directResponsePolicy: *deny
+
+    # --- Default: everything else is forwarded to Grafana ---
+    - conditions:
+        - prefix: /
+      services: *grafana
