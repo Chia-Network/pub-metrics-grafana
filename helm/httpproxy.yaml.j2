@@ -2,8 +2,11 @@
 # enforced by the ingress-nginx `configuration-snippet`. Contour ignores nginx
 # annotations, so the 403 rules are expressed as native routes here.
 #
-# Contour matches the longest path prefix, so the explicit allow-listed
-# `/api/*` prefixes take precedence over the `/api/` catch-all that returns 403.
+# The allow-listed `/api/*` routes use `regex` conditions with a `(/.*)?` segment
+# boundary (mirroring the old nginx `search(/|$)` rules) so that only exact segment
+# matches like `/api/search` or `/api/search/...` are allowed, not superstrings like
+# `/api/searchfoo`. Contour always sorts regex matches ahead of prefix matches, so
+# these allow routes take precedence over the `/api/` prefix catch-all that 403s.
 #
 # Templated with j2 at deploy time (HOSTNAME, SERVICE_NAME) and applied with
 # `kubectl apply`. The chart's own Ingress is disabled (ingress.enabled: false)
@@ -43,39 +46,39 @@ spec:
       secretName: grafana-star-tls
   routes:
     # --- Allow-listed API routes (forwarded to Grafana) ---
-    # These prefixes are longer than the "/api/" catch-all below, so Contour
-    # matches them first and lets the request through.
+    # Regex matches (sorted ahead of the "/api/" prefix 403 catch-all by Contour)
+    # with a `(/.*)?` segment boundary, so `/api/searchfoo` is NOT allowed through.
     - conditions:
-        - prefix: /api/login/ping
+        - regex: /api/login/ping(/.*)?
       services: &grafana
         - name: {{ SERVICE_NAME }}
           port: 80
     - conditions:
-        - prefix: /api/search
+        - regex: /api/search(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/frontend-metrics
+        - regex: /api/frontend-metrics(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/plugins
+        - regex: /api/plugins(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/folders
+        - regex: /api/folders(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/annotations
+        - regex: /api/annotations(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/ds/query
+        - regex: /api/ds/query(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/dashboards/home
+        - regex: /api/dashboards/home(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/query
+        - regex: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/query(/.*)?
       services: *grafana
     - conditions:
-        - prefix: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/label/network/values
+        - regex: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/label/network/values(/.*)?
       services: *grafana
 
     # --- Denied routes (return 403) ---
