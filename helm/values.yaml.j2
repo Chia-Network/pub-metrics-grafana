@@ -14,13 +14,18 @@ deployment:
   containerPortName: http
   environment:
     GF_SERVER_ROOT_URL: "https://{{ HOSTNAME }}"
+  # Probe Grafana's lightweight health endpoint instead of "/". The kubelet
+  # closes the connection after reading the status, and "/" returns the full
+  # index.html SPA shell, so probing "/" makes Grafana log a "connection reset
+  # by peer" error every cycle. /api/health returns a small JSON body that the
+  # probe reads fully, avoiding that noise.
   livenessProbe:
     httpGet:
-      path: /
+      path: /api/health
       port: http
   readinessProbe:
     httpGet:
-      path: /
+      path: /api/health
       port: http
 
 service:
