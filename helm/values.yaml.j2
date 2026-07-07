@@ -43,6 +43,9 @@ secretFiles:
     filename: datasources.yaml
     content: |
       apiVersion: 1
+      # Remove provisioned datasources that are no longer listed below, so renames
+      # or deletions don't leave stale entries in Grafana's database.
+      prune: true
       datasources:
         - name: trickster
           type: prometheus
