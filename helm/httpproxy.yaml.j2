@@ -1,0 +1,115 @@
+# Contour HTTPProxy that reproduces the public-route allow-list previously
+# enforced by the ingress-nginx `configuration-snippet`. Contour ignores nginx
+# annotations, so the 403 rules are expressed as native routes here.
+#
+# The allow-listed `/api/*` routes use `regex` conditions with a `(/.*)?` segment
+# boundary (mirroring the old nginx `search(/|$)` rules) so that only exact segment
+# matches like `/api/search` or `/api/search/...` are allowed, not superstrings like
+# `/api/searchfoo`. Contour always sorts regex matches ahead of prefix matches, so
+# these allow routes take precedence over the `/api/` prefix catch-all that 403s.
+#
+# Templated with j2 at deploy time (HOSTNAME, SERVICE_NAME) and applied with
+# `kubectl apply`. The chart's own Ingress is disabled (ingress.enabled: false)
+# because an Ingress and an HTTPProxy cannot both own the same fqdn.
+#
+# TLS: a single wildcard+apex certificate is issued only by the production
+# deployment and stored in the shared `grafana-star-tls` secret. Review apps
+# (<pr>.dashboard.chia.net) reuse that secret rather than each requesting their
+# own Let's Encrypt cert, which would risk hitting rate limits.
+{% if HOSTNAME == 'dashboard.chia.net' %}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-star-tls
+spec:
+  secretName: grafana-star-tls
+  dnsNames:
+    - dashboard.chia.net
+    - '*.dashboard.chia.net'
+  issuerRef:
+    name: letsencrypt-cf
+    kind: ClusterIssuer
+---
+{% endif %}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: {{ SERVICE_NAME }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ HOSTNAME }}
+    external-dns.alpha.kubernetes.io/ttl: "120"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+spec:
+  ingressClassName: contour
+  virtualhost:
+    fqdn: {{ HOSTNAME }}
+    tls:
+      secretName: grafana-star-tls
+  routes:
+    # --- Allow-listed API routes (forwarded to Grafana) ---
+    # Regex matches (sorted ahead of the "/api/" prefix 403 catch-all by Contour)
+    # with a `(/.*)?` segment boundary, so `/api/searchfoo` is NOT allowed through.
+    - conditions:
+        - regex: /api/login/ping(/.*)?
+      services: &grafana
+        - name: {{ SERVICE_NAME }}
+          port: 80
+    - conditions:
+        - regex: /api/search(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/frontend-metrics(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/plugins(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/folders(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/annotations(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/ds/query(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/dashboards/home(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/query(/.*)?
+      services: *grafana
+    - conditions:
+        - regex: /api/datasources/uid/PB06BBC9CA81C548D/resources/api/v1/label/network/values(/.*)?
+      services: *grafana
+
+    # --- Denied routes (return 403) ---
+    # Everything else under /api/ that is not allow-listed above.
+    - conditions:
+        - prefix: /api/
+      directResponsePolicy:
+        statusCode: 403
+    # Sensitive UI / operational endpoints.
+    - conditions:
+        - prefix: /swagger
+      directResponsePolicy: &deny
+        statusCode: 403
+    - conditions:
+        - prefix: /metrics
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /admin
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /connections/datasources
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /datasources
+      directResponsePolicy: *deny
+    - conditions:
+        - prefix: /openapi
+      directResponsePolicy: *deny
+
+    # --- Default: everything else is forwarded to Grafana ---
+    - conditions:
+        - prefix: /
+      services: *grafana

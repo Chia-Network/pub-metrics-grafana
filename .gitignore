@@ -1,1 +1,5 @@
 .idea
+
+# Rendered at deploy time from the .j2 templates; never commit
+helm/values.yaml
+helm/httpproxy.yaml
