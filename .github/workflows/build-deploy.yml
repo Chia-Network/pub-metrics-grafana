@@ -89,6 +89,7 @@ jobs:
           kubectl apply -n grafana-pub -f helm/httpproxy.yaml
 
       - name: Trigger downstream workflows
+        if: matrix.colo.region == 'fmt'
         uses: Chia-Network/actions/github/glue@main
         with:
           glue_url: ${{ secrets.GLUE_API_URL }}
