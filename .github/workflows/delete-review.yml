@@ -46,7 +46,11 @@ jobs:
         env:
           REVIEW_SLUG: ${{ github.event.pull_request.number }}
         run: |
-          helm uninstall -n "grafana-pub" "grafana-$REVIEW_SLUG"
+          if helm status -n "grafana-pub" "grafana-$REVIEW_SLUG" >/dev/null 2>&1; then
+            helm uninstall -n "grafana-pub" "grafana-$REVIEW_SLUG"
+          else
+            echo "No review app release grafana-$REVIEW_SLUG; nothing to delete"
+          fi
 
       - name: Delete Contour HTTPProxy
         env:
