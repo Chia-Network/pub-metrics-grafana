@@ -1,4 +1,4 @@
-FROM grafana/grafana:13.0
+FROM grafana/grafana:13.3
 
 COPY ./provisioning/ /etc/grafana/provisioning
 COPY ./dashboards /var/lib/grafana/dashboards
